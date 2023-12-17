@@ -985,4 +985,40 @@ export const ITEMS_COMPONENTS: readonly Item[] = [
         isRawInput: false,
         extractorType: null,
     },
+    {
+        id: "heavy-oil-residue",
+        name: "Heavy Oil Residue",
+        wikiUrl: "https://satisfactory.fandom.com/wiki/Heavy_Oil_Residue",
+        wikiImgUrl:
+            "https://static.wikia.nocookie.net/satisfactory_gamepedia_en/images/b/bd/Heavy_Oil_Residue.png/revision/latest?cb=20200310163145",
+        stackSize: -1,
+        imgUrl: "assets/images/heavy-oil-residue.png",
+        isFluid: true,
+        isRawInput: false,
+        extractorType: null,
+    },
+    {
+        id: "alumina-solution",
+        name: "Alumina Solution",
+        wikiUrl: "https://satisfactory.fandom.com/wiki/Alumina_Solution",
+        wikiImgUrl:
+            "https://static.wikia.nocookie.net/satisfactory_gamepedia_en/images/d/da/Alumina_Solution.png/revision/latest?cb=20200219105221",
+        stackSize: -1,
+        imgUrl: "assets/images/alumina-solution.png",
+        isFluid: true,
+        isRawInput: false,
+        extractorType: null,
+    },
+    {
+        id: "sulfuric-acid",
+        name: "Sulfuric Acid",
+        wikiUrl: "https://satisfactory.fandom.com/wiki/Sulfuric_Acid",
+        wikiImgUrl:
+            "https://static.wikia.nocookie.net/satisfactory_gamepedia_en/images/8/8e/Sulfuric_Acid.png/revision/latest?cb=20200221112246",
+        stackSize: -1,
+        imgUrl: "assets/images/sulfuric-acid.png",
+        isFluid: true,
+        isRawInput: false,
+        extractorType: null,
+    },
 ];

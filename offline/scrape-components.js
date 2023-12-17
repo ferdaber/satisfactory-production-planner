@@ -8,6 +8,20 @@ const response = await axios.get(pageUrl);
 const $ = load(response.data);
 const links = $(".mw-category-group li a");
 
+const ADDITIONAL_COMPONENTS = [
+    {
+        name: "Heavy Oil Residue",
+        id: "heavy-oil-residue",
+        wikiUrl: "https://satisfactory.fandom.com/wiki/Heavy_Oil_Residue",
+    },
+    {
+        name: "Alumina Solution",
+        id: "alumina-solution",
+        wikiUrl: "https://satisfactory.fandom.com/wiki/Alumina_Solution",
+    },
+    { name: "Sulfuric Acid", id: "sulfuric-acid", wikiUrl: "https://satisfactory.fandom.com/wiki/Sulfuric_Acid" },
+];
+
 const componentIds = links
     .map((_, el) => {
         const name = $(el).text();
@@ -18,7 +32,8 @@ const componentIds = links
             .join("-");
         return { name, wikiUrl, id };
     })
-    .toArray();
+    .toArray()
+    .concat(ADDITIONAL_COMPONENTS);
 
 await fs.writeFile("./offline/scrape-results/component-ids.json", await formatJson(componentIds));
 

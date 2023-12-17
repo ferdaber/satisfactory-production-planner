@@ -8,18 +8,18 @@ import { Recipe, RecipeInput, RecipeOutput } from "./types/recipe";
 interface LinkedRecipe {
     recipe: Recipe;
     matrixCoefficientColumnIdx: number;
-    solution: string;
+    solution: Fraction | null;
     inputs: {
         input: RecipeInput;
         linkedRecipe: LinkedRecipe | null;
         matrixCoefficientColumnIdx: number;
-        solution: string;
+        solution: Fraction | null;
     }[];
     outputs: {
         output: RecipeOutput;
         linkedRecipe: LinkedRecipe | null;
         matrixCoefficientColumnIdx: number;
-        solution: string;
+        solution: Fraction | null;
     }[];
 }
 
@@ -38,26 +38,28 @@ function buildRow<T extends FractionLike>(rowLength: number, rowValues: Record<n
 export function solveProduction(outputItemId: string, throughput: number, debug = false) {
     const outputItem = getItemById(outputItemId);
     const linkedRecipes: LinkedRecipe[] = [];
+    // this tracks the first linked recipe of its kind, to be merged later
+    const uniqueLinkedRecipes = new Map<Recipe, LinkedRecipe>();
 
     let colIdx = 0;
     function resolveItemOutputRecipe(desiredItem: Item, linkedOutputRecipe: LinkedRecipe | null) {
         const matchingRecipes = getRecipesByOutputId(desiredItem.id);
         const primaryRecipes = matchingRecipes.filter((recipe) => !recipe.isAlternate && !recipe.isManual);
         if (primaryRecipes.length !== 1) {
-            debugger;
+            // debugger;
         }
         const recipe = primaryRecipes[0];
 
         const linkedRecipe: LinkedRecipe = {
             recipe,
             matrixCoefficientColumnIdx: colIdx++,
-            solution: "",
+            solution: null,
             outputs: recipe.outputs.map((output): LinkedRecipe["outputs"][number] => {
                 return {
                     output,
                     linkedRecipe: null,
                     matrixCoefficientColumnIdx: colIdx++,
-                    solution: "",
+                    solution: null,
                 };
             }),
             inputs: recipe.inputs.map((input): LinkedRecipe["inputs"][number] => {
@@ -65,11 +67,14 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     input,
                     linkedRecipe: null,
                     matrixCoefficientColumnIdx: colIdx++,
-                    solution: "",
+                    solution: null,
                 };
             }),
         };
         linkedRecipes.push(linkedRecipe);
+        if (!uniqueLinkedRecipes.has(recipe)) {
+            uniqueLinkedRecipes.set(recipe, linkedRecipe);
+        }
 
         for (const output of linkedRecipe.outputs) {
             if (output.output.itemId === desiredItem.id) {
@@ -160,15 +165,63 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
         }),
     );
     const solvedMatrix = rref(matrix, debug);
-    // TODO: add splitter logic
     for (const linkedRecipe of linkedRecipes) {
-        linkedRecipe.solution = solvedMatrix[linkedRecipe.matrixCoefficientColumnIdx].at(-1)!.toString();
+        linkedRecipe.solution = solvedMatrix[linkedRecipe.matrixCoefficientColumnIdx].at(-1)!;
         for (const link of [...linkedRecipe.inputs, ...linkedRecipe.outputs]) {
-            link.solution = solvedMatrix[link.matrixCoefficientColumnIdx].at(-1)!.toString();
+            link.solution = solvedMatrix[link.matrixCoefficientColumnIdx].at(-1)!;
         }
     }
 
-    return linkedRecipes;
+    const workingLinkedRecipesSet = new Set(linkedRecipes);
+
+    function mergeLinkedRecipes(sourceRecipe: LinkedRecipe, targetRecipe: LinkedRecipe) {
+        // the number of buildings is additive
+        targetRecipe.solution = targetRecipe.solution!.add(sourceRecipe.solution!);
+        // for the outputs, just add them to the list, they get merged later if they are inputs
+        targetRecipe.outputs.push(...sourceRecipe.outputs);
+        for (const targetInput of targetRecipe.inputs) {
+            const sourceInput = sourceRecipe.inputs.find(
+                (sourceInput) => sourceInput.input.itemId === targetInput.input.itemId,
+            )!;
+            // add the solutions together
+            targetInput.solution!.add(sourceInput.solution!);
+            // merge any linked duplicate recipes recursively
+            if (targetInput.linkedRecipe) {
+                targetInput.linkedRecipe = mergeDuplicateRecipes(targetInput.linkedRecipe.recipe);
+
+                // redirect the matching source inputs into this recipe, and delete its corresponding output link
+                const counterpartTargetOutput = targetInput.linkedRecipe.outputs.find(
+                    (counterpartOutput) => counterpartOutput.output.itemId === targetInput.input.itemId,
+                )!;
+                counterpartTargetOutput.solution = targetInput.solution!.copy();
+                counterpartTargetOutput.linkedRecipe = targetRecipe;
+
+                const counterpartSourceOutputIdx = sourceInput.linkedRecipe!.outputs.findIndex(
+                    (counterpartOutput) => counterpartOutput.output.itemId === targetInput.input.itemId,
+                )!;
+                sourceInput.linkedRecipe!.outputs.splice(counterpartSourceOutputIdx, 1);
+            }
+        }
+        workingLinkedRecipesSet.delete(sourceRecipe);
+        return targetRecipe;
+    }
+
+    function mergeDuplicateRecipes(recipe: Recipe): LinkedRecipe {
+        const firstLinkedRecipe = uniqueLinkedRecipes.get(recipe)!;
+        const linkedRecipesToMerge = Array.from(workingLinkedRecipesSet).filter(
+            (linkedRecipe) => linkedRecipe !== firstLinkedRecipe && linkedRecipe.recipe === recipe,
+        );
+        for (const recipeToMerge of linkedRecipesToMerge) {
+            mergeLinkedRecipes(recipeToMerge, firstLinkedRecipe);
+        }
+        return firstLinkedRecipe;
+    }
+
+    for (const recipe of uniqueLinkedRecipes.keys()) {
+        mergeDuplicateRecipes(recipe);
+    }
+
+    return Array.from(workingLinkedRecipesSet);
 }
 
 export function printSolvedProduction(linkedRecipes: readonly LinkedRecipe[]) {
