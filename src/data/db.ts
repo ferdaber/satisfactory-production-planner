@@ -1,7 +1,6 @@
 import { Item } from "../types/item";
 import { Recipe } from "../types/recipe";
-import { ITEMS_COMPONENTS } from "./items-components";
-import { ITEMS_RAW } from "./items-raw";
+import { ITEMS } from "./items";
 import { RECIPES } from "./recipes";
 
 const ITEM_ID_INDEX = new Map<string, Item>();
@@ -13,7 +12,7 @@ export function findItemById(itemId: string) {
     if (item) {
         return item;
     } else {
-        item = [...ITEMS_RAW, ...ITEMS_COMPONENTS].find((item) => item.id === itemId);
+        item = ITEMS.find((item) => item.id === itemId);
         if (item) {
             ITEM_ID_INDEX.set(itemId, item);
         }

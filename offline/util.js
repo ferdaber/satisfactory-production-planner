@@ -7,3 +7,10 @@ export function formatJson(json) {
         ...prettierConfig,
     });
 }
+
+export function formatTs(source) {
+    return prettier.format(source, {
+        filepath: "file.ts",
+        ...prettierConfig,
+    });
+}

@@ -32,5 +32,7 @@ export default {
 ## TODOs
 
 -   [ ] Refactor splitter logic to be built while recipes are built (it's probably easier)
+    -   Track the first linked recipe when creating and always use that one
 -   [ ] Implement recycle logic
--   [ ] Rework scraper to start from recipes and scrape all other items
+    -   Track all outputs from recipes that do not have a counterpart input, and merge them to a viable input
+-   [x] Rework scraper to start from recipes and scrape all other items
