@@ -1,26 +1,40 @@
 import { getItemById, getRecipesByOutputId } from "./data/db";
-import { FractionLike, Fraction } from "./math/fractions";
+import { FractionLike, Fraction, createFraction } from "./math/fractions";
 import { Matrix } from "./math/matrix";
 import { rref } from "./math/row-reduce";
 import { Item } from "./types/item";
 import { Recipe, RecipeInput, RecipeOutput } from "./types/recipe";
 
+interface LinkedRecipeCalcData {
+    matrixColumnIdx: number;
+    solution: Fraction;
+}
+
+interface LinkedRecipeIOFeedLink {
+    recipe: LinkedRecipe;
+    oppositeFeed: LinkedRecipeIOFeed;
+}
+
+interface LinkedRecipeIOFeed {
+    calcData: LinkedRecipeCalcData;
+    link: LinkedRecipeIOFeedLink | null;
+}
+
+interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | RecipeOutput> {
+    dbData: T;
+    // this represents a specific input or output feed into this recipe
+    // for BOTH outputs and inputs it can be multiple feeds (splitter) for a single item
+    // an output can have multiple feeds if the same recipe is re-used for multiple destinations
+    // an input can have multiple feeds if an output is reused as a recycle feed (think water production from alumina)
+    // a feed can be connected to another recipe, or it can be unlinked (in the case of leaf or root nodes)
+    feeds: LinkedRecipeIOFeed[];
+}
+
 interface LinkedRecipe {
-    recipe: Recipe;
-    matrixCoefficientColumnIdx: number;
-    solution: Fraction | null;
-    inputs: {
-        input: RecipeInput;
-        linkedRecipe: LinkedRecipe | null;
-        matrixCoefficientColumnIdx: number;
-        solution: Fraction | null;
-    }[];
-    outputs: {
-        output: RecipeOutput;
-        linkedRecipe: LinkedRecipe | null;
-        matrixCoefficientColumnIdx: number;
-        solution: Fraction | null;
-    }[];
+    dbData: Recipe;
+    buildingCalcData: LinkedRecipeCalcData;
+    inputs: { [itemId: string]: LinkedRecipeIO };
+    outputs: { [itemId: string]: LinkedRecipeIO };
 }
 
 function buildRow<T extends FractionLike>(rowLength: number, rowValues: Record<number, T>): T[] {
@@ -37,203 +51,288 @@ function buildRow<T extends FractionLike>(rowLength: number, rowValues: Record<n
 
 export function solveProduction(outputItemId: string, throughput: number, debug = false) {
     const outputItem = getItemById(outputItemId);
+    // this is ordered by traversal
     const linkedRecipes: LinkedRecipe[] = [];
-    // this tracks the first linked recipe of its kind, to be merged later
-    const uniqueLinkedRecipes = new Map<Recipe, LinkedRecipe>();
+    const uniqueRecipes = new Map<Recipe, LinkedRecipe>();
+    const unlinkedOutputFeeds: { feed: LinkedRecipeIOFeed; recipe: LinkedRecipe; itemId: string }[] = [];
 
     let colIdx = 0;
-    function resolveItemOutputRecipe(desiredItem: Item, linkedOutputRecipe: LinkedRecipe | null) {
+    function resolveItemOutputRecipe(
+        desiredItem: Item,
+        outputFeedLink: { recipe: LinkedRecipe; feed: LinkedRecipeIOFeed } | null,
+    ): LinkedRecipe {
         const matchingRecipes = getRecipesByOutputId(desiredItem.id);
         const primaryRecipes = matchingRecipes.filter((recipe) => !recipe.isAlternate && !recipe.isManual);
-        if (primaryRecipes.length !== 1) {
-            // debugger;
-        }
-        const recipe = primaryRecipes[0];
+        const recipe = primaryRecipes.sort((a, b) => {
+            // silly heuristic:
+            // ignore all "Unpackage X recipes"
+            // then for two competing recipes, pick the one where the index of the output in the recipe is the lowest (it's the game's "intended" primary recipe)
+            // if they tie, check for the one where it is the *only* output
+            // if that still ties, use the one with the highest throughput
+            // if that still ties, use the one with the highest amount per cycle
+            const unpackageSort = Number(a.id.includes("unpackage-")) - Number(b.id.includes("unpackage-"));
+            if (unpackageSort) {
+                return unpackageSort;
+            }
+            const aIndex = a.outputs.findIndex((output) => output.itemId === desiredItem.id),
+                bIndex = b.outputs.findIndex((output) => output.itemId === desiredItem.id);
+            const indexSort = aIndex - bIndex;
+            if (indexSort) {
+                return indexSort;
+            }
+            const numOutputsSort = a.outputs.length - b.outputs.length;
+            if (numOutputsSort) {
+                return numOutputsSort;
+            }
+            const aOutput = a.outputs[aIndex],
+                bOutput = b.outputs[bIndex];
+            const throughputSort = bOutput.throughput - aOutput.throughput,
+                amountSort = bOutput.amount - aOutput.amount;
+            return throughputSort || amountSort;
+        })[0];
 
-        const linkedRecipe: LinkedRecipe = {
-            recipe,
-            matrixCoefficientColumnIdx: colIdx++,
-            solution: null,
-            outputs: recipe.outputs.map((output): LinkedRecipe["outputs"][number] => {
-                return {
-                    output,
-                    linkedRecipe: null,
-                    matrixCoefficientColumnIdx: colIdx++,
-                    solution: null,
-                };
-            }),
-            inputs: recipe.inputs.map((input): LinkedRecipe["inputs"][number] => {
-                return {
-                    input,
-                    linkedRecipe: null,
-                    matrixCoefficientColumnIdx: colIdx++,
-                    solution: null,
-                };
-            }),
-        };
-        linkedRecipes.push(linkedRecipe);
-        if (!uniqueLinkedRecipes.has(recipe)) {
-            uniqueLinkedRecipes.set(recipe, linkedRecipe);
-        }
-
-        for (const output of linkedRecipe.outputs) {
-            if (output.output.itemId === desiredItem.id) {
-                const matchingInput = linkedOutputRecipe?.inputs.find((input) => input.input.itemId === desiredItem.id);
-                if (matchingInput) {
-                    matchingInput.linkedRecipe = linkedRecipe;
+        let linkedRecipe = uniqueRecipes.get(recipe);
+        if (linkedRecipe) {
+            // for a linked recipe that already exists, we only need to create a new output for it
+            // pointing to that recipe
+            if (!outputFeedLink) {
+                debugger; // this should never happen
+                throw new Error(`Unexpected empty output link for an existing recipe`);
+            }
+            const existingOutput = linkedRecipe.outputs[desiredItem.id];
+            const feed: LinkedRecipeIOFeed = {
+                calcData: outputFeedLink.feed.calcData,
+                link: {
+                    oppositeFeed: outputFeedLink.feed,
+                    recipe: outputFeedLink.recipe,
+                },
+            };
+            outputFeedLink.feed.link = {
+                oppositeFeed: feed,
+                recipe: linkedRecipe,
+            };
+            existingOutput.feeds.push(feed);
+        } else {
+            linkedRecipe = {
+                dbData: recipe,
+                buildingCalcData: {
+                    matrixColumnIdx: colIdx++,
+                    solution: createFraction(-1),
+                },
+                outputs: {},
+                inputs: {},
+            };
+            linkedRecipes.push(linkedRecipe);
+            uniqueRecipes.set(recipe, linkedRecipe);
+            for (const output of recipe.outputs) {
+                // for a new linked recipe, create outputs and if there is a corresponding input
+                // link the output with the counterpart input and link the two recipes together
+                // otherwise create a brand new output that points nowhere, and track that
+                if (outputFeedLink && desiredItem.id === output.itemId) {
+                    const feed: LinkedRecipeIOFeed = {
+                        calcData: outputFeedLink.feed.calcData,
+                        link: {
+                            oppositeFeed: outputFeedLink.feed,
+                            recipe: outputFeedLink.recipe,
+                        },
+                    };
+                    outputFeedLink.feed.link = {
+                        oppositeFeed: feed,
+                        recipe: linkedRecipe,
+                    };
+                    linkedRecipe.outputs[output.itemId] = {
+                        dbData: output,
+                        feeds: [feed],
+                    };
+                } else {
+                    const feed: LinkedRecipeIOFeed = {
+                        calcData: {
+                            matrixColumnIdx: colIdx++,
+                            solution: createFraction(-1),
+                        },
+                        link: null,
+                    };
+                    linkedRecipe.outputs[output.itemId] = {
+                        dbData: output,
+                        feeds: [feed],
+                    };
+                    unlinkedOutputFeeds.push({
+                        itemId: output.itemId,
+                        feed,
+                        recipe: linkedRecipe,
+                    });
                 }
-                output.linkedRecipe = linkedOutputRecipe;
+            }
+            for (const input of recipe.inputs) {
+                // for a new linked recipe, create inputs and if it's not a raw ingredient
+                // resolve the linked recipe for that input's desired item
+                // it's `linkData` will be populated when the output of the linked recipe is resolved
+                const feed: LinkedRecipeIOFeed = {
+                    calcData: {
+                        matrixColumnIdx: colIdx++,
+                        solution: createFraction(-1),
+                    },
+                    link: null,
+                };
+                linkedRecipe.inputs[input.itemId] = {
+                    dbData: input,
+                    feeds: [feed],
+                };
+                const inputItem = getItemById(input.itemId);
+                if (!inputItem.isRawInput) {
+                    resolveItemOutputRecipe(inputItem, { feed, recipe: linkedRecipe });
+                }
             }
         }
 
-        for (const input of linkedRecipe.inputs) {
-            const inputItem = getItemById(input.input.itemId);
-            if (!inputItem.isRawInput) {
-                resolveItemOutputRecipe(inputItem, linkedRecipe);
-            }
-        }
+        return linkedRecipe;
     }
-    resolveItemOutputRecipe(outputItem, null);
+    const desiredItemRecipe = resolveItemOutputRecipe(outputItem, null);
 
+    // the number of columns is the number of variables + the constant coefficients
     const numColumns = colIdx + 1;
     const matrix: Matrix<FractionLike> = [];
-    const seenLinks = new Set<LinkedRecipe["inputs" | "outputs"][number]>();
+    // const seenLinks = new Set<LinkedRecipe["inputs" | "outputs"][number]>();
     for (const linkedRecipe of linkedRecipes) {
-        // the building number is itself a ratio, use the first output
-        const firstOutput = linkedRecipe.outputs[0];
+        // the building number is itself a ratio, use the first input since inputs are guaranteed to have single feeds
+        const outputs = Object.values(linkedRecipe.outputs);
+        const inputs = Object.values(linkedRecipe.inputs);
+        const firstOutput = outputs[0];
+        const firstInput = inputs[0];
+        // for this ratio: x_buildings = 1/input_throughput * (x_input_feed_1 + ... + x_input_feed_n)
         matrix.push(
             buildRow(numColumns, {
-                [linkedRecipe.matrixCoefficientColumnIdx]: 1,
-                [firstOutput.matrixCoefficientColumnIdx]: new Fraction(firstOutput.output.throughput)
-                    .inverse()
-                    .multiply(-1),
+                [linkedRecipe.buildingCalcData.matrixColumnIdx]: -1,
+                ...Object.fromEntries(
+                    firstInput.feeds.map((feed) => [
+                        feed.calcData.matrixColumnIdx,
+                        createFraction(firstInput.dbData.throughput).inverse(),
+                    ]),
+                ),
             }),
         );
 
-        // given a recipe of N inputs and M outputs, we want N + M - 1 ratios
-        // it's sufficient to build ratios for all inputs against the first output
-        // and all the outputs after the first with the first input
-        for (const input of linkedRecipe.inputs) {
+        // given a recipe of N input feeds and M output feeds, we want N + M - 1 ratios
+        // with each feed given its own equation
+        // it's sufficient to build ratios for all input feeds against the first output (with all its feeds)
+        // and all the output feeds after the first with the first input (with all its feeds)
+        for (const input of inputs) {
+            // for this ratio: 1/input_throughput * (x_input_feed_1 + ... + x_input_feed_n) = 1/output_throughput * (x_output_feed_1 + ... + x_output_feed_n)
             matrix.push(
                 buildRow(numColumns, {
-                    [input.matrixCoefficientColumnIdx]: new Fraction(input.input.throughput).inverse(),
-                    [firstOutput.matrixCoefficientColumnIdx]: new Fraction(firstOutput.output.throughput)
-                        .inverse()
-                        .multiply(-1),
+                    ...Object.fromEntries(
+                        input.feeds.map((feed) => [
+                            feed.calcData.matrixColumnIdx,
+                            createFraction(input.dbData.throughput).inverse().multiply(-1),
+                        ]),
+                    ),
+                    ...Object.fromEntries(
+                        firstOutput.feeds.map((feed) => [
+                            feed.calcData.matrixColumnIdx,
+                            createFraction(firstOutput.dbData.throughput).inverse(),
+                        ]),
+                    ),
                 }),
             );
         }
-        for (const output of linkedRecipe.outputs.slice(1)) {
-            const firstInput = linkedRecipe.inputs[0];
+        for (const output of outputs.slice(1)) {
             matrix.push(
                 buildRow(numColumns, {
-                    [firstInput.matrixCoefficientColumnIdx]: new Fraction(firstInput.input.throughput).inverse(),
-                    [output.matrixCoefficientColumnIdx]: new Fraction(output.output.throughput).inverse().multiply(-1),
+                    ...Object.fromEntries(
+                        firstInput.feeds.map((feed) => [
+                            feed.calcData.matrixColumnIdx,
+                            createFraction(firstInput.dbData.throughput).inverse().multiply(-1),
+                        ]),
+                    ),
+                    ...Object.fromEntries(
+                        output.feeds.map((feed) => [
+                            feed.calcData.matrixColumnIdx,
+                            createFraction(output.dbData.throughput).inverse(),
+                        ]),
+                    ),
                 }),
             );
         }
 
         // any input and output that is linked will have an equality relation
-        const addEqualityRelation = (key: "inputs" | "outputs") => {
-            for (const link of linkedRecipe[key]) {
-                if (link.linkedRecipe && !seenLinks.has(link)) {
-                    const otherLink = link.linkedRecipe[key === "inputs" ? "outputs" : "inputs"].find(
-                        (otherLink) => otherLink.linkedRecipe === linkedRecipe,
-                    )!;
-                    matrix.push(
-                        buildRow(numColumns, {
-                            [link.matrixCoefficientColumnIdx]: 1,
-                            [otherLink.matrixCoefficientColumnIdx]: -1,
-                        }),
-                    );
-                    seenLinks.add(link);
-                    seenLinks.add(otherLink);
-                }
-            }
-        };
-        addEqualityRelation("inputs");
-        addEqualityRelation("outputs");
+        // const addEqualityRelation = (key: "inputs" | "outputs") => {
+        //     for (const link of linkedRecipe[key]) {
+        //         if (link.linkedRecipe && !seenLinks.has(link)) {
+        //             const otherLink = link.linkedRecipe[key === "inputs" ? "outputs" : "inputs"].find(
+        //                 (otherLink) => otherLink.linkedRecipe === linkedRecipe,
+        //             )!;
+        //             matrix.push(
+        //                 buildRow(numColumns, {
+        //                     [link.matrixCoefficientColumnIdx]: 1,
+        //                     [otherLink.matrixCoefficientColumnIdx]: -1,
+        //                 }),
+        //             );
+        //             seenLinks.add(link);
+        //             seenLinks.add(otherLink);
+        //         }
+        //     }
+        // };
+        // addEqualityRelation("inputs");
+        // addEqualityRelation("outputs");
     }
     // the last one is the invariant
-    const invariantColumnIdx = linkedRecipes[0].outputs.find(
-        (output) => output.output.itemId === outputItemId,
-    )!.matrixCoefficientColumnIdx;
+    const invariantColumnIdx = desiredItemRecipe.outputs[outputItemId].feeds[0].calcData.matrixColumnIdx;
     matrix.push(
         buildRow(numColumns, {
             [invariantColumnIdx]: 1,
             [-1]: throughput,
         }),
     );
+    // for this to be a consistent system of equations, it must be an N x N+1 matrix
+    if (matrix.length !== numColumns - 1) {
+        debugger;
+        throw new Error(`Unexpected ${matrix.length} x ${matrix[0].length} matrix size`);
+    }
     const solvedMatrix = rref(matrix, debug);
     for (const linkedRecipe of linkedRecipes) {
-        linkedRecipe.solution = solvedMatrix[linkedRecipe.matrixCoefficientColumnIdx].at(-1)!;
-        for (const link of [...linkedRecipe.inputs, ...linkedRecipe.outputs]) {
-            link.solution = solvedMatrix[link.matrixCoefficientColumnIdx].at(-1)!;
+        linkedRecipe.buildingCalcData.solution = solvedMatrix[linkedRecipe.buildingCalcData.matrixColumnIdx].at(-1)!;
+        for (const feed of [...Object.values(linkedRecipe.inputs), ...Object.values(linkedRecipe.outputs)].flatMap(
+            (io) => io.feeds,
+        )) {
+            feed.calcData.solution = solvedMatrix[feed.calcData.matrixColumnIdx].at(-1)!;
         }
     }
 
-    const workingLinkedRecipesSet = new Set(linkedRecipes);
+    return linkedRecipes;
+}
 
-    function mergeLinkedRecipes(sourceRecipe: LinkedRecipe, targetRecipe: LinkedRecipe) {
-        // the number of buildings is additive
-        targetRecipe.solution = targetRecipe.solution!.add(sourceRecipe.solution!);
-        // for the outputs, just add them to the list, they get merged later if they are inputs
-        targetRecipe.outputs.push(...sourceRecipe.outputs);
-        for (const targetInput of targetRecipe.inputs) {
-            const sourceInput = sourceRecipe.inputs.find(
-                (sourceInput) => sourceInput.input.itemId === targetInput.input.itemId,
-            )!;
-            // add the solutions together
-            targetInput.solution!.add(sourceInput.solution!);
-            // merge any linked duplicate recipes recursively
-            if (targetInput.linkedRecipe) {
-                targetInput.linkedRecipe = mergeDuplicateRecipes(targetInput.linkedRecipe.recipe);
-
-                // redirect the matching source inputs into this recipe, and delete its corresponding output link
-                const counterpartTargetOutput = targetInput.linkedRecipe.outputs.find(
-                    (counterpartOutput) => counterpartOutput.output.itemId === targetInput.input.itemId,
-                )!;
-                counterpartTargetOutput.solution = targetInput.solution!.copy();
-                counterpartTargetOutput.linkedRecipe = targetRecipe;
-
-                const counterpartSourceOutputIdx = sourceInput.linkedRecipe!.outputs.findIndex(
-                    (counterpartOutput) => counterpartOutput.output.itemId === targetInput.input.itemId,
-                )!;
-                sourceInput.linkedRecipe!.outputs.splice(counterpartSourceOutputIdx, 1);
-            }
+function printIo(io: LinkedRecipeIO, type: "input" | "output") {
+    const dirStr = type === "input" ? "from" : "to";
+    if (io.feeds.length === 1) {
+        let str = `  - ${getItemById(io.dbData.itemId).name} (${io.feeds[0].calcData.solution} units/min)`;
+        if (io.feeds[0].link) {
+            str += ` ${dirStr} recipe "${io.feeds[0].link.recipe.dbData.name}"`;
         }
-        workingLinkedRecipesSet.delete(sourceRecipe);
-        return targetRecipe;
+        return str;
+    } else {
+        return [
+            `  - ${getItemById(io.dbData.itemId).name} (split)`,
+            ...io.feeds.map((feed) => {
+                let str = `    - ${feed.calcData.solution} units/min`;
+                if (feed.link) {
+                    str += ` ${dirStr} recipe "${feed.link.recipe.dbData.name}"`;
+                }
+                return str;
+            }),
+        ].join("\n");
     }
-
-    function mergeDuplicateRecipes(recipe: Recipe): LinkedRecipe {
-        const firstLinkedRecipe = uniqueLinkedRecipes.get(recipe)!;
-        const linkedRecipesToMerge = Array.from(workingLinkedRecipesSet).filter(
-            (linkedRecipe) => linkedRecipe !== firstLinkedRecipe && linkedRecipe.recipe === recipe,
-        );
-        for (const recipeToMerge of linkedRecipesToMerge) {
-            mergeLinkedRecipes(recipeToMerge, firstLinkedRecipe);
-        }
-        return firstLinkedRecipe;
-    }
-
-    for (const recipe of uniqueLinkedRecipes.keys()) {
-        mergeDuplicateRecipes(recipe);
-    }
-
-    return Array.from(workingLinkedRecipesSet);
 }
 
 export function printSolvedProduction(linkedRecipes: readonly LinkedRecipe[]) {
     return linkedRecipes
         .map((recipe) => {
-            const inputs = recipe.inputs
-                .map((input) => `  - ${getItemById(input.input.itemId).name} (${input.solution} units/min)`)
+            const inputs = Object.values(recipe.inputs)
+                .map((io) => printIo(io, "input"))
                 .join("\n");
-            const outputs = recipe.outputs
-                .map((output) => `  - ${getItemById(output.output.itemId).name} (${output.solution} units/min)`)
+            const outputs = Object.values(recipe.outputs)
+                .map((io) => printIo(io, "output"))
                 .join("\n");
-            return `Recipe "${recipe.recipe.name}" (${recipe.recipe.buildingId} x${recipe.solution}):\nInputs:\n${inputs}\nOutputs:\n${outputs}`;
+            return `Recipe "${recipe.dbData.name}" (${recipe.dbData.buildingId} x${recipe.buildingCalcData.solution}):\nInputs:\n${inputs}\nOutputs:\n${outputs}`;
         })
         .join("\n\n");
 }

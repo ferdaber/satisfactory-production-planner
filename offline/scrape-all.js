@@ -112,7 +112,15 @@ function parsePageForRecipes(data) {
             if (colName === "recipe") {
                 if (recipe) {
                     // debugger;
-                    g_recipes.push(recipe);
+                    if (recipe.id in g_recipes) {
+                        console.log(
+                            `Ignoring duplicate recipe "${recipe.name}" found under "${recipe.wikiUrl}", other URL: "${
+                                g_recipes[recipe.id].wikiUrl
+                            }"`,
+                        );
+                    } else {
+                        g_recipes[recipe.id] = recipe;
+                    }
                 }
                 recipe = {
                     inputs: [],
@@ -186,7 +194,15 @@ function parsePageForRecipes(data) {
         }
     }
     if (recipe) {
-        g_recipes.push(recipe);
+        if (recipe.id in g_recipes) {
+            console.log(
+                `Ignoring duplicate recipe "${recipe.name}" found under "${recipe.wikiUrl}", other URL: "${
+                    g_recipes[recipe.id].wikiUrl
+                }"`,
+            );
+        } else {
+            g_recipes[recipe.id] = recipe;
+        }
     }
     return true;
 }
@@ -217,23 +233,29 @@ async function parsePageForItem(data) {
     const hasResourceAcquisition =
         $('h2:contains("Obtaining")').nextUntil("h2", 'h3:contains("Resource acquisition")').length > 0;
 
-    g_items.push({
-        id,
-        name: displayName,
-        wikiUrl,
-        wikiImgUrl,
-        stackSize,
-        imgUrl: `assets/images/${id}.${imgExt}`,
-        isFluid: stackSize === -1,
-        isRawInput: hasResourceAcquisition || !hasRecipes,
-        extractorType: null,
-    });
+    if (id in g_items) {
+        console.log(
+            `Ignoring duplicate item "${displayName}" found under "${wikiUrl}", other URL: "${g_items[id].wikiUrl}"`,
+        );
+    } else {
+        g_items[id] = {
+            id,
+            name: displayName,
+            wikiUrl,
+            wikiImgUrl,
+            stackSize,
+            imgUrl: `assets/images/${id}.${imgExt}`,
+            isFluid: stackSize === -1,
+            isRawInput: id !== "silica" && id !== "uranium-waste" && (hasResourceAcquisition || !hasRecipes),
+            extractorType: null,
+        };
+    }
 }
 
-/** @type {import('../src/types/recipe').Recipe[]} */
-const g_recipes = [];
-/** @type {import('../src/types/item').Item[]} */
-const g_items = [];
+/** @type {{ [recipeId: string]: import('../src/types/recipe').Recipe }} */
+const g_recipes = {};
+/** @type {{ [itemid: string]: import('../src/types/item').Item }} */
+const g_items = {};
 /** @type {string[]} */
 const g_urlsToParse = await getInitialComponentUrls();
 /** @type {Set<string>} */
@@ -255,21 +277,21 @@ while (g_urlsToParse.length) {
     await parsePageForItem({ hasRecipes, html, wikiUrl });
 }
 
-g_recipes.sort((a, b) => {
+const g_recipeList = Object.values(g_recipes).sort((a, b) => {
     return a.wikiUrl.localeCompare(b.wikiUrl) || a.name.localeCompare(b.name);
 });
 
-g_items.sort((a, b) => {
+const g_itemList = Object.values(g_items).sort((a, b) => {
     return Number(b.isRawInput) - Number(a.isRawInput) || a.name.localeCompare(b.name);
 });
 
 console.log(
-    `Found ${g_recipes.length} recipes:\n${g_recipes
+    `Found ${g_recipeList.length} recipes:\n${g_recipeList
         .map((recipe) => `  - ${recipe.name} [${recipe.wikiUrl}]`)
         .join("\n")}`,
 );
 console.log(
-    `Found ${g_items.length} items:\n${g_items
+    `Found ${g_itemList.length} items:\n${g_itemList
         .map((item) => `  - ${item.name} [${item.wikiUrl}] (${item.isRawInput ? "Raw" : "Crafted"})`)
         .join("\n")}`,
 );
@@ -280,7 +302,7 @@ await fs.writeFile(
     await formatTs(`
 import type { Recipe } from "../types/recipe";
 
-export const RECIPES: readonly Recipe[] = ${JSON.stringify(g_recipes)};
+export const RECIPES: readonly Recipe[] = ${JSON.stringify(g_recipeList)};
 `),
 );
 
@@ -290,7 +312,7 @@ await fs.writeFile(
     await formatTs(`
 import type { Item } from "../types/item";
 
-export const ITEMS: readonly Item[] = ${JSON.stringify(g_items)};
+export const ITEMS: readonly Item[] = ${JSON.stringify(g_itemList)};
 `),
 );
 

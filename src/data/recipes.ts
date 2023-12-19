@@ -112,19 +112,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "refinery",
     },
     {
-        inputs: [{ itemId: "packaged-alumina-solution", amount: 2, throughput: 120 }],
-        outputs: [
-            { itemId: "alumina-solution", amount: 2, throughput: 120 },
-            { itemId: "empty-canister", amount: 2, throughput: 120 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Alumina_Solution",
-        name: "Unpackage Alumina Solution",
-        isAlternate: false,
-        id: "unpackage-alumina-solution",
-        buildingId: "packager",
-    },
-    {
         inputs: [
             { itemId: "aluminum-ingot", amount: 20, throughput: 150 },
             { itemId: "copper-ingot", amount: 10, throughput: 75 },
@@ -172,56 +159,6 @@ export const RECIPES: readonly Recipe[] = [
     },
     {
         inputs: [
-            { itemId: "alumina-solution", amount: 4, throughput: 240 },
-            { itemId: "coal", amount: 2, throughput: 120 },
-        ],
-        outputs: [
-            { itemId: "aluminum-scrap", amount: 6, throughput: 360 },
-            { itemId: "water", amount: 2, throughput: 120 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Scrap",
-        name: "Aluminum Scrap",
-        isAlternate: false,
-        id: "aluminum-scrap",
-        buildingId: "refinery",
-    },
-    {
-        inputs: [
-            { itemId: "alumina-solution", amount: 12, throughput: 180 },
-            { itemId: "petroleum-coke", amount: 4, throughput: 60 },
-        ],
-        outputs: [
-            { itemId: "aluminum-scrap", amount: 20, throughput: 300 },
-            { itemId: "water", amount: 7, throughput: 105 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Scrap",
-        name: "Electrode - Aluminum Scrap",
-        isAlternate: true,
-        id: "electrode---aluminum-scrap",
-        buildingId: "refinery",
-    },
-    {
-        inputs: [
-            { itemId: "bauxite", amount: 15, throughput: 150 },
-            { itemId: "coal", amount: 10, throughput: 100 },
-            { itemId: "sulfuric-acid", amount: 5, throughput: 50 },
-            { itemId: "water", amount: 6, throughput: 60 },
-        ],
-        outputs: [
-            { itemId: "aluminum-scrap", amount: 30, throughput: 300 },
-            { itemId: "water", amount: 5, throughput: 50 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Scrap",
-        name: "Instant Scrap",
-        isAlternate: true,
-        id: "instant-scrap",
-        buildingId: "blender",
-    },
-    {
-        inputs: [
             { itemId: "adaptive-control-unit", amount: 2, throughput: 1.5 },
             { itemId: "supercomputer", amount: 1, throughput: 0.75 },
         ],
@@ -259,23 +196,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: false,
         id: "automated-wiring",
         buildingId: "assembler",
-    },
-    {
-        inputs: [
-            { itemId: "sulfuric-acid", amount: 2.5, throughput: 50 },
-            { itemId: "alumina-solution", amount: 2, throughput: 40 },
-            { itemId: "aluminum-casing", amount: 1, throughput: 20 },
-        ],
-        outputs: [
-            { itemId: "battery", amount: 1, throughput: 20 },
-            { itemId: "water", amount: 1.5, throughput: 30 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Battery",
-        name: "Battery",
-        isAlternate: false,
-        id: "battery",
-        buildingId: "blender",
     },
     {
         inputs: [
@@ -754,19 +674,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "oil-extractor",
     },
     {
-        inputs: [{ itemId: "packaged-oil", amount: 2, throughput: 60 }],
-        outputs: [
-            { itemId: "crude-oil", amount: 2, throughput: 60 },
-            { itemId: "empty-canister", amount: 2, throughput: 60 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Crude_Oil",
-        name: "Unpackage Oil",
-        isAlternate: false,
-        id: "unpackage-oil",
-        buildingId: "packager",
-    },
-    {
         inputs: [
             { itemId: "quartz-crystal", amount: 36, throughput: 18 },
             { itemId: "cable", amount: 28, throughput: 14 },
@@ -919,19 +826,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "packager",
     },
     {
-        inputs: [{ itemId: "packaged-sulfuric-acid", amount: 1, throughput: 60 }],
-        outputs: [
-            { itemId: "sulfuric-acid", amount: 1, throughput: 60 },
-            { itemId: "empty-canister", amount: 1, throughput: 60 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Empty_Canister",
-        name: "Unpackage Sulfuric Acid",
-        isAlternate: false,
-        id: "unpackage-sulfuric-acid",
-        buildingId: "packager",
-    },
-    {
         inputs: [{ itemId: "packaged-turbofuel", amount: 2, throughput: 20 }],
         outputs: [
             { itemId: "turbofuel", amount: 2, throughput: 20 },
@@ -945,19 +839,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "packager",
     },
     {
-        inputs: [{ itemId: "packaged-water", amount: 2, throughput: 120 }],
-        outputs: [
-            { itemId: "water", amount: 2, throughput: 120 },
-            { itemId: "empty-canister", amount: 2, throughput: 120 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Empty_Canister",
-        name: "Unpackage Water",
-        isAlternate: false,
-        id: "unpackage-water",
-        buildingId: "packager",
-    },
-    {
         inputs: [{ itemId: "aluminum-ingot", amount: 1, throughput: 60 }],
         outputs: [{ itemId: "empty-fluid-tank", amount: 1, throughput: 60 }],
         isManual: false,
@@ -966,19 +847,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: false,
         id: "empty-fluid-tank",
         buildingId: "constructor",
-    },
-    {
-        inputs: [{ itemId: "packaged-nitric-acid", amount: 1, throughput: 20 }],
-        outputs: [
-            { itemId: "nitric-acid", amount: 1, throughput: 20 },
-            { itemId: "empty-fluid-tank", amount: 1, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Empty_Fluid_Tank",
-        name: "Unpackage Nitric Acid",
-        isAlternate: false,
-        id: "unpackage-nitric-acid",
-        buildingId: "packager",
     },
     {
         inputs: [{ itemId: "packaged-nitrogen-gas", amount: 1, throughput: 60 }],
@@ -1047,23 +915,6 @@ export const RECIPES: readonly Recipe[] = [
     },
     {
         inputs: [
-            { itemId: "uranium", amount: 10, throughput: 50 },
-            { itemId: "concrete", amount: 3, throughput: 15 },
-            { itemId: "sulfuric-acid", amount: 8, throughput: 40 },
-        ],
-        outputs: [
-            { itemId: "encased-uranium-cell", amount: 5, throughput: 25 },
-            { itemId: "sulfuric-acid", amount: 2, throughput: 10 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Encased_Uranium_Cell",
-        name: "Encased Uranium Cell",
-        isAlternate: false,
-        id: "encased-uranium-cell",
-        buildingId: "blender",
-    },
-    {
-        inputs: [
             { itemId: "uranium", amount: 5, throughput: 25 },
             { itemId: "silica", amount: 3, throughput: 15 },
             { itemId: "sulfur", amount: 5, throughput: 25 },
@@ -1117,19 +968,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "blender",
     },
     {
-        inputs: [{ itemId: "crude-oil", amount: 6, throughput: 60 }],
-        outputs: [
-            { itemId: "fuel", amount: 4, throughput: 40 },
-            { itemId: "polymer-resin", amount: 3, throughput: 30 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Fuel",
-        name: "Fuel",
-        isAlternate: false,
-        id: "fuel",
-        buildingId: "refinery",
-    },
-    {
         inputs: [{ itemId: "heavy-oil-residue", amount: 6, throughput: 60 }],
         outputs: [{ itemId: "fuel", amount: 4, throughput: 40 }],
         isManual: false,
@@ -1138,19 +976,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: false,
         id: "residual-fuel",
         buildingId: "refinery",
-    },
-    {
-        inputs: [{ itemId: "packaged-fuel", amount: 2, throughput: 60 }],
-        outputs: [
-            { itemId: "fuel", amount: 2, throughput: 60 },
-            { itemId: "empty-canister", amount: 2, throughput: 60 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Fuel",
-        name: "Unpackage Fuel",
-        isAlternate: false,
-        id: "unpackage-fuel",
-        buildingId: "packager",
     },
     {
         inputs: [
@@ -1305,19 +1130,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "refinery",
     },
     {
-        inputs: [{ itemId: "packaged-heavy-oil-residue", amount: 2, throughput: 20 }],
-        outputs: [
-            { itemId: "heavy-oil-residue", amount: 2, throughput: 20 },
-            { itemId: "empty-canister", amount: 2, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Heavy_Oil_Residue",
-        name: "Unpackage Heavy Oil Residue",
-        isAlternate: false,
-        id: "unpackage-heavy-oil-residue",
-        buildingId: "packager",
-    },
-    {
         inputs: [
             { itemId: "quickwire", amount: 56, throughput: 210 },
             { itemId: "cable", amount: 10, throughput: 37.5 },
@@ -1451,19 +1263,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "refinery",
     },
     {
-        inputs: [{ itemId: "packaged-liquid-biofuel", amount: 2, throughput: 60 }],
-        outputs: [
-            { itemId: "liquid-biofuel", amount: 2, throughput: 60 },
-            { itemId: "empty-canister", amount: 2, throughput: 60 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Liquid_Biofuel",
-        name: "Unpackage Liquid Biofuel",
-        isAlternate: false,
-        id: "unpackage-liquid-biofuel",
-        buildingId: "packager",
-    },
-    {
         inputs: [
             { itemId: "motor", amount: 2, throughput: 2 },
             { itemId: "rubber", amount: 15, throughput: 15 },
@@ -1582,55 +1381,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: false,
         id: "unpackage-nitric-acid",
         buildingId: "packager",
-    },
-    {
-        inputs: [{ itemId: "packaged-nitrogen-gas", amount: 1, throughput: 60 }],
-        outputs: [
-            { itemId: "nitrogen-gas", amount: 4, throughput: 240 },
-            { itemId: "empty-fluid-tank", amount: 1, throughput: 60 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Nitrogen_Gas",
-        name: "Unpackage Nitrogen Gas",
-        isAlternate: false,
-        id: "unpackage-nitrogen-gas",
-        buildingId: "packager",
-    },
-    {
-        inputs: [
-            { itemId: "uranium", amount: 5, throughput: 25 },
-            { itemId: "uranium-waste", amount: 5, throughput: 25 },
-            { itemId: "nitric-acid", amount: 3, throughput: 15 },
-            { itemId: "sulfuric-acid", amount: 5, throughput: 25 },
-        ],
-        outputs: [
-            { itemId: "non-fissile-uranium", amount: 20, throughput: 100 },
-            { itemId: "water", amount: 8, throughput: 40 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Non-fissile_Uranium",
-        name: "Fertile Uranium",
-        isAlternate: true,
-        id: "fertile-uranium",
-        buildingId: "blender",
-    },
-    {
-        inputs: [
-            { itemId: "uranium-waste", amount: 15, throughput: 37.5 },
-            { itemId: "silica", amount: 10, throughput: 25 },
-            { itemId: "nitric-acid", amount: 6, throughput: 15 },
-            { itemId: "sulfuric-acid", amount: 6, throughput: 15 },
-        ],
-        outputs: [
-            { itemId: "non-fissile-uranium", amount: 20, throughput: 50 },
-            { itemId: "water", amount: 6, throughput: 15 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Non-fissile_Uranium",
-        name: "Non-fissile Uranium",
-        isAlternate: false,
-        id: "non-fissile-uranium",
-        buildingId: "blender",
     },
     {
         inputs: [
@@ -1799,19 +1549,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "refinery",
     },
     {
-        inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
-        outputs: [
-            { itemId: "plastic", amount: 2, throughput: 20 },
-            { itemId: "heavy-oil-residue", amount: 1, throughput: 10 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Plastic",
-        name: "Plastic",
-        isAlternate: false,
-        id: "plastic",
-        buildingId: "refinery",
-    },
-    {
         inputs: [
             { itemId: "rubber", amount: 6, throughput: 30 },
             { itemId: "fuel", amount: 6, throughput: 30 },
@@ -1902,32 +1639,6 @@ export const RECIPES: readonly Recipe[] = [
         name: "Fuel",
         isAlternate: false,
         id: "fuel",
-        buildingId: "refinery",
-    },
-    {
-        inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
-        outputs: [
-            { itemId: "heavy-oil-residue", amount: 4, throughput: 40 },
-            { itemId: "polymer-resin", amount: 2, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Polymer_Resin",
-        name: "Heavy Oil Residue",
-        isAlternate: true,
-        id: "heavy-oil-residue",
-        buildingId: "refinery",
-    },
-    {
-        inputs: [{ itemId: "crude-oil", amount: 6, throughput: 60 }],
-        outputs: [
-            { itemId: "polymer-resin", amount: 13, throughput: 130 },
-            { itemId: "heavy-oil-residue", amount: 2, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Polymer_Resin",
-        name: "Polymer Resin",
-        isAlternate: true,
-        id: "polymer-resin",
         buildingId: "refinery",
     },
     {
@@ -2150,19 +1861,6 @@ export const RECIPES: readonly Recipe[] = [
         buildingId: "refinery",
     },
     {
-        inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
-        outputs: [
-            { itemId: "rubber", amount: 2, throughput: 20 },
-            { itemId: "heavy-oil-residue", amount: 2, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Rubber",
-        name: "Rubber",
-        isAlternate: false,
-        id: "rubber",
-        buildingId: "refinery",
-    },
-    {
         inputs: [{ itemId: "iron-ingot", amount: 5, throughput: 12.5 }],
         outputs: [{ itemId: "screw", amount: 20, throughput: 50 }],
         isManual: false,
@@ -2191,22 +1889,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: true,
         id: "steel-screw",
         buildingId: "constructor",
-    },
-    {
-        inputs: [
-            { itemId: "bauxite", amount: 12, throughput: 120 },
-            { itemId: "water", amount: 18, throughput: 180 },
-        ],
-        outputs: [
-            { itemId: "alumina-solution", amount: 12, throughput: 120 },
-            { itemId: "silica", amount: 5, throughput: 50 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Silica",
-        name: "Alumina Solution",
-        isAlternate: false,
-        id: "alumina-solution",
-        buildingId: "refinery",
     },
     {
         inputs: [
@@ -2537,19 +2219,6 @@ export const RECIPES: readonly Recipe[] = [
         isAlternate: false,
         id: "turbofuel",
         buildingId: "refinery",
-    },
-    {
-        inputs: [{ itemId: "packaged-turbofuel", amount: 2, throughput: 20 }],
-        outputs: [
-            { itemId: "turbofuel", amount: 2, throughput: 20 },
-            { itemId: "empty-canister", amount: 2, throughput: 20 },
-        ],
-        isManual: false,
-        wikiUrl: "https://satisfactory.fandom.com//wiki/Turbofuel",
-        name: "Unpackage Turbofuel",
-        isAlternate: false,
-        id: "unpackage-turbofuel",
-        buildingId: "packager",
     },
     {
         inputs: [
