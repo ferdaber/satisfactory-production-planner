@@ -5,22 +5,22 @@ import { rref } from "./math/row-reduce";
 import { Item } from "./types/item";
 import { Recipe, RecipeInput, RecipeOutput } from "./types/recipe";
 
-interface LinkedRecipeCalcData {
+export interface LinkedRecipeCalcData {
     matrixColumnIdx: number;
     solution: Fraction;
 }
 
-interface LinkedRecipeIOFeedLink {
+export interface LinkedRecipeIOFeedLink {
     recipe: LinkedRecipe;
     oppositeFeed: LinkedRecipeIOFeed;
 }
 
-interface LinkedRecipeIOFeed {
+export interface LinkedRecipeIOFeed {
     calcData: LinkedRecipeCalcData;
     link: LinkedRecipeIOFeedLink | null;
 }
 
-interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | RecipeOutput> {
+export interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | RecipeOutput> {
     dbData: T;
     // this represents a specific input or output feed into this recipe
     // for BOTH outputs and inputs it can be multiple feeds (splitter) for a single item
@@ -30,7 +30,7 @@ interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | Re
     feeds: LinkedRecipeIOFeed[];
 }
 
-interface LinkedRecipe {
+export interface LinkedRecipe {
     dbData: Recipe;
     buildingCalcData: LinkedRecipeCalcData;
     inputs: { [itemId: string]: LinkedRecipeIO };
@@ -54,7 +54,11 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
     // this is ordered by traversal
     const linkedRecipes: LinkedRecipe[] = [];
     const uniqueRecipes = new Map<Recipe, LinkedRecipe>();
+
+    // this is used for possible recycle feeds after the initial resolution
+    // the unlinked output for the overall desired item is ignored
     const unlinkedOutputFeeds: { feed: LinkedRecipeIOFeed; recipe: LinkedRecipe; itemId: string }[] = [];
+    const recipesByInputId: { [inputItemId: string]: LinkedRecipe[] } = {};
 
     let colIdx = 0;
     function resolveItemOutputRecipe(
@@ -156,11 +160,13 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                         dbData: output,
                         feeds: [feed],
                     };
-                    unlinkedOutputFeeds.push({
-                        itemId: output.itemId,
-                        feed,
-                        recipe: linkedRecipe,
-                    });
+                    if (output.itemId !== outputItemId) {
+                        unlinkedOutputFeeds.push({
+                            itemId: output.itemId,
+                            feed,
+                            recipe: linkedRecipe,
+                        });
+                    }
                 }
             }
             for (const input of recipe.inputs) {
@@ -179,6 +185,8 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     feeds: [feed],
                 };
                 const inputItem = getItemById(input.itemId);
+                recipesByInputId[input.itemId] ??= [];
+                recipesByInputId[input.itemId].push(linkedRecipe);
                 if (!inputItem.isRawInput) {
                     resolveItemOutputRecipe(inputItem, { feed, recipe: linkedRecipe });
                 }
@@ -188,6 +196,28 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
         return linkedRecipe;
     }
     const desiredItemRecipe = resolveItemOutputRecipe(outputItem, null);
+
+    // try to resolve recycle feeds
+    for (const unlinkedOutput of unlinkedOutputFeeds) {
+        if (recipesByInputId[unlinkedOutput.itemId]) {
+            const receivingRecipe = recipesByInputId[unlinkedOutput.itemId].filter(
+                (linkedRecipe) => linkedRecipe !== unlinkedOutput.recipe,
+            )[0];
+            const existingInput = receivingRecipe.inputs[unlinkedOutput.itemId];
+            const feed: LinkedRecipeIOFeed = {
+                calcData: unlinkedOutput.feed.calcData,
+                link: {
+                    oppositeFeed: unlinkedOutput.feed,
+                    recipe: unlinkedOutput.recipe,
+                },
+            };
+            unlinkedOutput.feed.link = {
+                oppositeFeed: feed,
+                recipe: receivingRecipe,
+            };
+            existingInput.feeds.push(feed);
+        }
+    }
 
     // the number of columns is the number of variables + the constant coefficients
     const numColumns = colIdx + 1;

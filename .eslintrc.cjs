@@ -8,6 +8,12 @@ module.exports = {
     rules: {
         "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
         "no-debugger": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                argsIgnorePattern: "^props$",
+            },
+        ],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/ban-types": "off",
     },

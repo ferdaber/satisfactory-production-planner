@@ -33,6 +33,6 @@ export default {
 
 -   [x] Refactor splitter logic to be built while recipes are built (it's probably easier)
     -   Track the first linked recipe when creating and always use that one
--   [ ] Implement recycle logic
+-   [x] Implement recycle logic
     -   Track all outputs from recipes that do not have a counterpart input, and merge them to a viable input
 -   [x] Rework scraper to start from recipes and scrape all other items
