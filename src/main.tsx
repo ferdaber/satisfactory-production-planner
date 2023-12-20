@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import { App } from "./components/app";
 import { Global, css } from "@emotion/react";
 import "./index.css";
-import mermaid from "mermaid";
+// import mermaid from "mermaid";
 
-mermaid.initialize({ startOnLoad: false });
+// mermaid.initialize({ startOnLoad: false });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
+    <>
         <Global
             styles={css`
                 :root {
@@ -35,5 +35,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             `}
         />
         <App />
-    </React.StrictMode>,
+    </>,
 );

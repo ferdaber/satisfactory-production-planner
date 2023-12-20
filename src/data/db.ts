@@ -1,23 +1,14 @@
+import { Building } from "../types/building";
 import { Item } from "../types/item";
 import { Recipe } from "../types/recipe";
+import { BUILDINGS } from "./buildings";
 import { ITEMS } from "./items";
 import { RECIPES } from "./recipes";
 
-const ITEM_ID_INDEX = new Map<string, Item>();
-const RECIPE_ID_INDEX = new Map<string, Recipe>();
 const RECIPE_OUTPUT_INDEX = new Map<string, Recipe[]>();
 
 export function findItemById(itemId: string) {
-    let item = ITEM_ID_INDEX.get(itemId);
-    if (item) {
-        return item;
-    } else {
-        item = ITEMS.find((item) => item.id === itemId);
-        if (item) {
-            ITEM_ID_INDEX.set(itemId, item);
-        }
-        return item;
-    }
+    return ITEMS[itemId] as Item | undefined;
 }
 
 export function getItemById(itemId: string) {
@@ -29,16 +20,7 @@ export function getItemById(itemId: string) {
 }
 
 export function findRecipeById(recipeId: string) {
-    let recipe = RECIPE_ID_INDEX.get(recipeId);
-    if (recipe) {
-        return recipe;
-    } else {
-        recipe = RECIPES.find((recipe) => recipe.id === recipeId);
-        if (recipe) {
-            RECIPE_ID_INDEX.set(recipeId, recipe);
-        }
-        return recipe;
-    }
+    return RECIPES[recipeId] as Recipe | undefined;
 }
 
 export function getRecipeById(recipeId: string) {
@@ -54,8 +36,25 @@ export function getRecipesByOutputId(itemId: string) {
     if (recipes) {
         return recipes;
     } else {
-        recipes = RECIPES.filter((recipe) => recipe.outputs.some((output) => output.itemId === itemId));
+        recipes = [];
+        for (const recipeId in RECIPES) {
+            if (RECIPES[recipeId].outputs.some((output) => output.itemId === itemId)) {
+                recipes.push(RECIPES[recipeId]);
+            }
+        }
         RECIPE_OUTPUT_INDEX.set(itemId, recipes);
         return recipes;
     }
+}
+
+export function findBuildingById(buildingId: string) {
+    return BUILDINGS[buildingId] as Building | undefined;
+}
+
+export function getBuildingById(buildingId: string) {
+    const building = findBuildingById(buildingId);
+    if (!building) {
+        throw new Error(`Unable to find building with id "${buildingId}"`);
+    }
+    return building;
 }

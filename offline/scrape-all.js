@@ -165,6 +165,8 @@ function parsePageForRecipes(data) {
             } else if (colName === "building") {
                 const buildingLink = cell.find("a");
                 recipe.buildingId = nameToId(buildingLink.text().trim());
+                const buildingUrl = `https://satisfactory.fandom.com/${buildingLink.attr("href")}`;
+                g_buildingUrlsToParse.push(buildingUrl);
             } else if (colName === "products") {
                 if (!cell.text().trim()) {
                     continue;
@@ -227,8 +229,8 @@ async function parsePageForItem(data) {
     const imgResponse = await axios.get(wikiImgUrl, { responseType: "arraybuffer" });
     const imgContentType = imgResponse.headers.getContentType();
     const imgExt = imgContentType.replace(/^image\//, "");
-    await fs.ensureDir("./offline/scrape-results/images/items");
-    await fs.writeFile(`./offline/scrape-results/images/items/${id}.${imgExt}`, imgResponse.data);
+    await fs.ensureDir("./offline/scrape-results/images");
+    await fs.writeFile(`./offline/scrape-results/images/${id}.${imgExt}`, imgResponse.data);
 
     const hasResourceAcquisition =
         $('h2:contains("Obtaining")').nextUntil("h2", 'h3:contains("Resource acquisition")').length > 0;
@@ -247,17 +249,72 @@ async function parsePageForItem(data) {
             imgUrl: `assets/images/${id}.${imgExt}`,
             isFluid: stackSize === -1,
             isRawInput: id !== "silica" && id !== "uranium-waste" && (hasResourceAcquisition || !hasRecipes),
-            extractorType: null,
         };
     }
 }
 
+/** @param {{ wikiUrl: string, html: string }} data */
+async function parsePageForBuilding(data) {
+    const { wikiUrl, html } = data;
+    const $ = load(html);
+
+    let displayName = $('[data-source="displayName"]').text();
+    if (displayName.includes("Miner")) {
+        displayName = "Miner";
+    }
+    const id = nameToId(displayName);
+    const wikiImgUrl = $('[data-source="image"] img').attr("src");
+
+    const imgResponse = await axios.get(wikiImgUrl, { responseType: "arraybuffer" });
+    const imgContentType = imgResponse.headers.getContentType();
+    const imgExt = imgContentType.replace(/^image\//, "");
+    await fs.ensureDir("./offline/scrape-results/images");
+    await fs.writeFile(`./offline/scrape-results/images/${id}.${imgExt}`, imgResponse.data);
+
+    if (id in g_buildings) {
+        console.log(
+            `Ignoring duplicate building  "${displayName}" found under "${wikiUrl}", other URL: "${g_buildings[id].wikiUrl}"`,
+        );
+    } else {
+        g_buildings[id] = {
+            id,
+            name: displayName,
+            wikiUrl,
+            wikiImgUrl,
+            imgUrl: `assets/images/${id}.${imgExt}`,
+        };
+    }
+}
+
+/**
+ * @template T
+ * @param {T} obj
+ * @param {(a: [keyof T, T[keyof T]], b: [keyof T, T[keyof T]]) => number} sortCb
+ * @returns
+ */
+function sortObjectEntries(obj, sortCb) {
+    const entries = [];
+    for (const key of Object.keys(obj)) {
+        entries.push([key, obj[key]]);
+        delete obj[key];
+    }
+    entries.sort(sortCb);
+    for (const [key, val] of entries) {
+        obj[key] = val;
+    }
+    return obj;
+}
+
 /** @type {{ [recipeId: string]: import('../src/types/recipe').Recipe }} */
-const g_recipes = {};
-/** @type {{ [itemid: string]: import('../src/types/item').Item }} */
-const g_items = {};
+const g_recipes = Object.create(null);
+/** @type {{ [itemId: string]: import('../src/types/item').Item }} */
+const g_items = Object.create(null);
+/** @type {{ [buildingId: string]: import('../src/types/building').Building }}*/
+const g_buildings = Object.create(null);
 /** @type {string[]} */
 const g_urlsToParse = await getInitialComponentUrls();
+/** @type {string[]} */
+const g_buildingUrlsToParse = [];
 /** @type {Set<string>} */
 const g_parsedUrls = new Set();
 
@@ -277,22 +334,46 @@ while (g_urlsToParse.length) {
     await parsePageForItem({ hasRecipes, html, wikiUrl });
 }
 
-const g_recipeList = Object.values(g_recipes).sort((a, b) => {
+while (g_buildingUrlsToParse.length) {
+    const wikiUrl = g_buildingUrlsToParse.pop();
+
+    if (g_parsedUrls.has(wikiUrl)) {
+        continue;
+    } else {
+        g_parsedUrls.add(wikiUrl);
+    }
+
+    console.log(`Scraping page "${wikiUrl}"`);
+    const response = await axios.get(wikiUrl);
+    const html = response.data;
+    await parsePageForBuilding({ html, wikiUrl });
+}
+
+sortObjectEntries(g_recipes, ([, a], [, b]) => {
     return a.wikiUrl.localeCompare(b.wikiUrl) || a.name.localeCompare(b.name);
 });
 
-const g_itemList = Object.values(g_items).sort((a, b) => {
+sortObjectEntries(g_items, ([, a], [, b]) => {
     return Number(b.isRawInput) - Number(a.isRawInput) || a.name.localeCompare(b.name);
 });
 
+sortObjectEntries(g_buildings, ([, a], [, b]) => {
+    return a.name.localeCompare(b.name);
+});
+
 console.log(
-    `Found ${g_recipeList.length} recipes:\n${g_recipeList
+    `Found ${Object.keys(g_recipes).length} recipes:\n${Object.values(g_recipes)
         .map((recipe) => `  - ${recipe.name} [${recipe.wikiUrl}]`)
         .join("\n")}`,
 );
 console.log(
-    `Found ${g_itemList.length} items:\n${g_itemList
+    `Found ${Object.keys(g_items).length} items:\n${Object.values(g_items)
         .map((item) => `  - ${item.name} [${item.wikiUrl}] (${item.isRawInput ? "Raw" : "Crafted"})`)
+        .join("\n")}`,
+);
+console.log(
+    `Found ${Object.keys(g_buildings).length} buildings:\n${Object.values(g_buildings)
+        .map((building) => `  - ${building.name} [${building.wikiUrl}]`)
         .join("\n")}`,
 );
 
@@ -302,7 +383,7 @@ await fs.writeFile(
     await formatTs(`
 import type { Recipe } from "../types/recipe";
 
-export const RECIPES: readonly Recipe[] = ${JSON.stringify(g_recipeList)};
+export const RECIPES: Readonly<Record<string, Recipe>> = ${JSON.stringify(g_recipes)};
 `),
 );
 
@@ -312,9 +393,19 @@ await fs.writeFile(
     await formatTs(`
 import type { Item } from "../types/item";
 
-export const ITEMS: readonly Item[] = ${JSON.stringify(g_itemList)};
+export const ITEMS: Readonly<Record<string, Item>> = ${JSON.stringify(g_items)};
+`),
+);
+
+console.log(`Saving buildings...`);
+await fs.writeFile(
+    "./src/data/buildings.ts",
+    await formatTs(`
+import type { Building } from "../types/building";
+
+export const BUILDINGS: Readonly<Record<string, Building>> = ${JSON.stringify(g_buildings)};
 `),
 );
 
 console.log(`Saving images...`);
-fs.cpSync("./offline/scrape-results/images/items", "./src/assets/images", { overwrite: true, recursive: true });
+fs.cpSync("./offline/scrape-results/images", "./public/assets/images", { overwrite: true, recursive: true });

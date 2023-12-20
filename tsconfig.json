@@ -16,8 +16,7 @@
         "jsxImportSource": "@emotion/react",
 
         /* Linting */
-        "strict": true,
-        "noUnusedParameters": true
+        "strict": true
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]

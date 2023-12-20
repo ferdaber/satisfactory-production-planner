@@ -2,6 +2,8 @@ import { createRef, useEffect, useState } from "react";
 import { ITEMS } from "../data/items";
 import { Item } from "../types/item";
 
+const ITEMS_ENTRIES = Object.values(ITEMS).filter((item) => !item.isRawInput);
+
 type Props = {
     onChooseItem: (item: Item) => void;
 };
@@ -38,14 +40,13 @@ export function Sidebar(props: Props) {
                 className="flex-1 overflow-y-auto snap-y mt-4 flex flex-col space-y-2"
                 css={{ [`&::-webkit-scrollbar`]: { display: "none" } }}
             >
-                {ITEMS.filter(
+                {ITEMS_ENTRIES.filter(
                     (item) =>
-                        !item.isRawInput &&
-                        (!searchQuery ||
-                            item.name
-                                .toLowerCase()
-                                .split(/\s+/)
-                                .some((s) => s.startsWith(searchQuery.toLowerCase()))),
+                        !searchQuery ||
+                        item.name
+                            .toLowerCase()
+                            .split(/\s+/)
+                            .some((s) => s.startsWith(searchQuery.toLowerCase())),
                 ).map((item) => (
                     <li className="snap-start" key={item.id}>
                         <button

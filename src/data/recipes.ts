@@ -1,7 +1,7 @@
 import type { Recipe } from "../types/recipe";
 
-export const RECIPES: readonly Recipe[] = [
-    {
+export const RECIPES: Readonly<Record<string, Recipe>> = {
+    "adaptive-control-unit": {
         inputs: [
             { itemId: "automated-wiring", amount: 15, throughput: 7.5 },
             { itemId: "circuit-board", amount: 10, throughput: 5 },
@@ -16,7 +16,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "adaptive-control-unit",
         buildingId: "manufacturer",
     },
-    {
+    "ai-limiter": {
         inputs: [
             { itemId: "copper-sheet", amount: 5, throughput: 25 },
             { itemId: "quickwire", amount: 20, throughput: 100 },
@@ -29,7 +29,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "ai-limiter",
         buildingId: "assembler",
     },
-    {
+    "alclad-aluminum-sheet": {
         inputs: [
             { itemId: "aluminum-ingot", amount: 3, throughput: 30 },
             { itemId: "copper-ingot", amount: 1, throughput: 10 },
@@ -42,7 +42,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "alclad-aluminum-sheet",
         buildingId: "assembler",
     },
-    {
+    "hatcher-protein": {
         inputs: [{ itemId: "alien-remains", amount: 1, throughput: 20 }],
         outputs: [{ itemId: "alien-protein", amount: 1, throughput: 20 }],
         isManual: false,
@@ -52,7 +52,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "hatcher-protein",
         buildingId: "constructor",
     },
-    {
+    "hog-protein": {
         inputs: [{ itemId: "alien-remains", amount: 1, throughput: 20 }],
         outputs: [{ itemId: "alien-protein", amount: 1, throughput: 20 }],
         isManual: false,
@@ -62,7 +62,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "hog-protein",
         buildingId: "constructor",
     },
-    {
+    "spitter-protein": {
         inputs: [{ itemId: "plasma-spitter-remains", amount: 1, throughput: 20 }],
         outputs: [{ itemId: "alien-protein", amount: 1, throughput: 20 }],
         isManual: false,
@@ -72,7 +72,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "spitter-protein",
         buildingId: "constructor",
     },
-    {
+    "stinger-protein": {
         inputs: [{ itemId: "alien-remains", amount: 1, throughput: 20 }],
         outputs: [{ itemId: "alien-protein", amount: 1, throughput: 20 }],
         isManual: false,
@@ -82,7 +82,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "stinger-protein",
         buildingId: "constructor",
     },
-    {
+    "alumina-solution": {
         inputs: [
             { itemId: "bauxite", amount: 12, throughput: 120 },
             { itemId: "water", amount: 18, throughput: 180 },
@@ -98,7 +98,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "alumina-solution",
         buildingId: "refinery",
     },
-    {
+    "sloppy-alumina": {
         inputs: [
             { itemId: "bauxite", amount: 10, throughput: 200 },
             { itemId: "water", amount: 10, throughput: 200 },
@@ -111,7 +111,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "sloppy-alumina",
         buildingId: "refinery",
     },
-    {
+    "alclad-casing": {
         inputs: [
             { itemId: "aluminum-ingot", amount: 20, throughput: 150 },
             { itemId: "copper-ingot", amount: 10, throughput: 75 },
@@ -124,7 +124,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "alclad-casing",
         buildingId: "assembler",
     },
-    {
+    "aluminum-casing": {
         inputs: [{ itemId: "aluminum-ingot", amount: 3, throughput: 90 }],
         outputs: [{ itemId: "aluminum-casing", amount: 2, throughput: 60 }],
         isManual: false,
@@ -134,7 +134,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "aluminum-casing",
         buildingId: "constructor",
     },
-    {
+    "aluminum-ingot": {
         inputs: [
             { itemId: "aluminum-scrap", amount: 6, throughput: 90 },
             { itemId: "silica", amount: 5, throughput: 75 },
@@ -147,7 +147,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "aluminum-ingot",
         buildingId: "foundry",
     },
-    {
+    "pure-aluminum-ingot": {
         inputs: [{ itemId: "aluminum-scrap", amount: 2, throughput: 60 }],
         outputs: [{ itemId: "aluminum-ingot", amount: 1, throughput: 30 }],
         isManual: false,
@@ -157,7 +157,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pure-aluminum-ingot",
         buildingId: "smelter",
     },
-    {
+    "assembly-director-system": {
         inputs: [
             { itemId: "adaptive-control-unit", amount: 2, throughput: 1.5 },
             { itemId: "supercomputer", amount: 1, throughput: 0.75 },
@@ -170,7 +170,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "assembly-director-system",
         buildingId: "assembler",
     },
-    {
+    "automated-speed-wiring": {
         inputs: [
             { itemId: "stator", amount: 2, throughput: 3.75 },
             { itemId: "wire", amount: 40, throughput: 75 },
@@ -184,7 +184,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "automated-speed-wiring",
         buildingId: "manufacturer",
     },
-    {
+    "automated-wiring": {
         inputs: [
             { itemId: "stator", amount: 1, throughput: 2.5 },
             { itemId: "cable", amount: 20, throughput: 50 },
@@ -197,7 +197,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "automated-wiring",
         buildingId: "assembler",
     },
-    {
+    "classic-battery": {
         inputs: [
             { itemId: "sulfur", amount: 6, throughput: 45 },
             { itemId: "alclad-aluminum-sheet", amount: 7, throughput: 52.5 },
@@ -212,7 +212,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "classic-battery",
         buildingId: "manufacturer",
     },
-    {
+    beacon: {
         inputs: [
             { itemId: "iron-plate", amount: 3, throughput: 22.5 },
             { itemId: "iron-rod", amount: 1, throughput: 7.5 },
@@ -227,7 +227,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "beacon",
         buildingId: "manufacturer",
     },
-    {
+    "crystal-beacon": {
         inputs: [
             { itemId: "steel-beam", amount: 4, throughput: 2 },
             { itemId: "steel-pipe", amount: 16, throughput: 8 },
@@ -241,7 +241,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "crystal-beacon",
         buildingId: "manufacturer",
     },
-    {
+    "biomass-(alien-protein)": {
         inputs: [{ itemId: "alien-protein", amount: 1, throughput: 15 }],
         outputs: [{ itemId: "biomass", amount: 100, throughput: 1500 }],
         isManual: false,
@@ -251,7 +251,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "biomass-(alien-protein)",
         buildingId: "constructor",
     },
-    {
+    "biomass-(leaves)": {
         inputs: [{ itemId: "leaves", amount: 10, throughput: 120 }],
         outputs: [{ itemId: "biomass", amount: 5, throughput: 60 }],
         isManual: false,
@@ -261,7 +261,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "biomass-(leaves)",
         buildingId: "constructor",
     },
-    {
+    "biomass-(mycelia)": {
         inputs: [{ itemId: "mycelia", amount: 10, throughput: 150 }],
         outputs: [{ itemId: "biomass", amount: 10, throughput: 150 }],
         isManual: false,
@@ -271,7 +271,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "biomass-(mycelia)",
         buildingId: "constructor",
     },
-    {
+    "biomass-(wood)": {
         inputs: [{ itemId: "wood", amount: 4, throughput: 60 }],
         outputs: [{ itemId: "biomass", amount: 20, throughput: 300 }],
         isManual: false,
@@ -281,7 +281,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "biomass-(wood)",
         buildingId: "constructor",
     },
-    {
+    "black-powder": {
         inputs: [
             { itemId: "coal", amount: 1, throughput: 15 },
             { itemId: "sulfur", amount: 1, throughput: 15 },
@@ -294,7 +294,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "black-powder",
         buildingId: "assembler",
     },
-    {
+    "fine-black-powder": {
         inputs: [
             { itemId: "sulfur", amount: 2, throughput: 7.5 },
             { itemId: "compacted-coal", amount: 1, throughput: 3.75 },
@@ -307,7 +307,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fine-black-powder",
         buildingId: "assembler",
     },
-    {
+    cable: {
         inputs: [{ itemId: "wire", amount: 2, throughput: 60 }],
         outputs: [{ itemId: "cable", amount: 1, throughput: 30 }],
         isManual: false,
@@ -317,7 +317,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "cable",
         buildingId: "constructor",
     },
-    {
+    "coated-cable": {
         inputs: [
             { itemId: "wire", amount: 5, throughput: 37.5 },
             { itemId: "heavy-oil-residue", amount: 2, throughput: 15 },
@@ -330,7 +330,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "coated-cable",
         buildingId: "refinery",
     },
-    {
+    "insulated-cable": {
         inputs: [
             { itemId: "wire", amount: 9, throughput: 45 },
             { itemId: "rubber", amount: 6, throughput: 30 },
@@ -343,7 +343,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "insulated-cable",
         buildingId: "assembler",
     },
-    {
+    "quickwire-cable": {
         inputs: [
             { itemId: "quickwire", amount: 3, throughput: 7.5 },
             { itemId: "rubber", amount: 2, throughput: 5 },
@@ -356,7 +356,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "quickwire-cable",
         buildingId: "assembler",
     },
-    {
+    "caterium-ingot": {
         inputs: [{ itemId: "caterium-ore", amount: 3, throughput: 45 }],
         outputs: [{ itemId: "caterium-ingot", amount: 1, throughput: 15 }],
         isManual: false,
@@ -366,7 +366,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "caterium-ingot",
         buildingId: "smelter",
     },
-    {
+    "pure-caterium-ingot": {
         inputs: [
             { itemId: "caterium-ore", amount: 2, throughput: 24 },
             { itemId: "water", amount: 2, throughput: 24 },
@@ -379,7 +379,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pure-caterium-ingot",
         buildingId: "refinery",
     },
-    {
+    "caterium-circuit-board": {
         inputs: [
             { itemId: "plastic", amount: 10, throughput: 12.5 },
             { itemId: "quickwire", amount: 30, throughput: 37.5 },
@@ -392,7 +392,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "caterium-circuit-board",
         buildingId: "assembler",
     },
-    {
+    "circuit-board": {
         inputs: [
             { itemId: "copper-sheet", amount: 2, throughput: 15 },
             { itemId: "plastic", amount: 4, throughput: 30 },
@@ -405,7 +405,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "circuit-board",
         buildingId: "assembler",
     },
-    {
+    "electrode-circuit-board": {
         inputs: [
             { itemId: "rubber", amount: 6, throughput: 30 },
             { itemId: "petroleum-coke", amount: 9, throughput: 45 },
@@ -418,7 +418,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "electrode-circuit-board",
         buildingId: "assembler",
     },
-    {
+    "silicon-circuit-board": {
         inputs: [
             { itemId: "copper-sheet", amount: 11, throughput: 27.5 },
             { itemId: "silica", amount: 11, throughput: 27.5 },
@@ -431,7 +431,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "silicon-circuit-board",
         buildingId: "assembler",
     },
-    {
+    biocoal: {
         inputs: [{ itemId: "biomass", amount: 5, throughput: 37.5 }],
         outputs: [{ itemId: "coal", amount: 6, throughput: 45 }],
         isManual: false,
@@ -441,7 +441,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "biocoal",
         buildingId: "constructor",
     },
-    {
+    charcoal: {
         inputs: [{ itemId: "wood", amount: 1, throughput: 15 }],
         outputs: [{ itemId: "coal", amount: 10, throughput: 150 }],
         isManual: false,
@@ -451,7 +451,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "charcoal",
         buildingId: "constructor",
     },
-    {
+    coal: {
         inputs: [],
         outputs: [{ itemId: "coal", amount: 1, throughput: 60 }],
         isManual: false,
@@ -461,7 +461,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "coal",
         buildingId: "miner",
     },
-    {
+    "compacted-coal": {
         inputs: [
             { itemId: "coal", amount: 5, throughput: 25 },
             { itemId: "sulfur", amount: 5, throughput: 25 },
@@ -474,7 +474,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "compacted-coal",
         buildingId: "assembler",
     },
-    {
+    "caterium-computer": {
         inputs: [
             { itemId: "circuit-board", amount: 7, throughput: 26.25 },
             { itemId: "quickwire", amount: 28, throughput: 105 },
@@ -488,7 +488,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "caterium-computer",
         buildingId: "manufacturer",
     },
-    {
+    computer: {
         inputs: [
             { itemId: "circuit-board", amount: 10, throughput: 25 },
             { itemId: "cable", amount: 9, throughput: 22.5 },
@@ -503,7 +503,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "computer",
         buildingId: "manufacturer",
     },
-    {
+    "crystal-computer": {
         inputs: [
             { itemId: "circuit-board", amount: 8, throughput: 7.5 },
             { itemId: "crystal-oscillator", amount: 3, throughput: 2.8125 },
@@ -516,7 +516,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "crystal-computer",
         buildingId: "assembler",
     },
-    {
+    concrete: {
         inputs: [{ itemId: "limestone", amount: 3, throughput: 45 }],
         outputs: [{ itemId: "concrete", amount: 1, throughput: 15 }],
         isManual: false,
@@ -526,7 +526,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "concrete",
         buildingId: "constructor",
     },
-    {
+    "fine-concrete": {
         inputs: [
             { itemId: "silica", amount: 3, throughput: 7.5 },
             { itemId: "limestone", amount: 12, throughput: 30 },
@@ -539,7 +539,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fine-concrete",
         buildingId: "assembler",
     },
-    {
+    "rubber-concrete": {
         inputs: [
             { itemId: "limestone", amount: 10, throughput: 50 },
             { itemId: "rubber", amount: 2, throughput: 10 },
@@ -552,7 +552,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "rubber-concrete",
         buildingId: "assembler",
     },
-    {
+    "wet-concrete": {
         inputs: [
             { itemId: "limestone", amount: 6, throughput: 120 },
             { itemId: "water", amount: 5, throughput: 100 },
@@ -565,7 +565,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "wet-concrete",
         buildingId: "refinery",
     },
-    {
+    "cooling-device": {
         inputs: [
             { itemId: "heat-sink", amount: 5, throughput: 9.375 },
             { itemId: "motor", amount: 1, throughput: 1.875 },
@@ -579,7 +579,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "cooling-device",
         buildingId: "blender",
     },
-    {
+    "cooling-system": {
         inputs: [
             { itemId: "heat-sink", amount: 2, throughput: 12 },
             { itemId: "rubber", amount: 2, throughput: 12 },
@@ -594,7 +594,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "cooling-system",
         buildingId: "blender",
     },
-    {
+    "copper-alloy-ingot": {
         inputs: [
             { itemId: "copper-ore", amount: 10, throughput: 50 },
             { itemId: "iron-ore", amount: 5, throughput: 25 },
@@ -607,7 +607,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "copper-alloy-ingot",
         buildingId: "foundry",
     },
-    {
+    "copper-ingot": {
         inputs: [{ itemId: "copper-ore", amount: 1, throughput: 30 }],
         outputs: [{ itemId: "copper-ingot", amount: 1, throughput: 30 }],
         isManual: false,
@@ -617,7 +617,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "copper-ingot",
         buildingId: "smelter",
     },
-    {
+    "pure-copper-ingot": {
         inputs: [
             { itemId: "copper-ore", amount: 6, throughput: 15 },
             { itemId: "water", amount: 4, throughput: 10 },
@@ -630,7 +630,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pure-copper-ingot",
         buildingId: "refinery",
     },
-    {
+    "copper-powder": {
         inputs: [{ itemId: "copper-ingot", amount: 30, throughput: 300 }],
         outputs: [{ itemId: "copper-powder", amount: 5, throughput: 50 }],
         isManual: false,
@@ -640,7 +640,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "copper-powder",
         buildingId: "constructor",
     },
-    {
+    "copper-sheet": {
         inputs: [{ itemId: "copper-ingot", amount: 2, throughput: 20 }],
         outputs: [{ itemId: "copper-sheet", amount: 1, throughput: 10 }],
         isManual: false,
@@ -650,7 +650,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "copper-sheet",
         buildingId: "constructor",
     },
-    {
+    "steamed-copper-sheet": {
         inputs: [
             { itemId: "copper-ingot", amount: 3, throughput: 22.5 },
             { itemId: "water", amount: 3, throughput: 22.5 },
@@ -663,7 +663,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steamed-copper-sheet",
         buildingId: "refinery",
     },
-    {
+    "crude-oil": {
         inputs: [],
         outputs: [{ itemId: "crude-oil", amount: 2, throughput: 120 }],
         isManual: false,
@@ -673,7 +673,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "crude-oil",
         buildingId: "oil-extractor",
     },
-    {
+    "crystal-oscillator": {
         inputs: [
             { itemId: "quartz-crystal", amount: 36, throughput: 18 },
             { itemId: "cable", amount: 28, throughput: 14 },
@@ -687,7 +687,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "crystal-oscillator",
         buildingId: "manufacturer",
     },
-    {
+    "insulated-crystal-oscillator": {
         inputs: [
             { itemId: "quartz-crystal", amount: 10, throughput: 18.75 },
             { itemId: "rubber", amount: 7, throughput: 13.125 },
@@ -701,7 +701,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "insulated-crystal-oscillator",
         buildingId: "manufacturer",
     },
-    {
+    "electromagnetic-connection-rod": {
         inputs: [
             { itemId: "stator", amount: 2, throughput: 8 },
             { itemId: "high-speed-connector", amount: 1, throughput: 4 },
@@ -714,7 +714,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "electromagnetic-connection-rod",
         buildingId: "assembler",
     },
-    {
+    "electromagnetic-control-rod": {
         inputs: [
             { itemId: "stator", amount: 3, throughput: 6 },
             { itemId: "ai-limiter", amount: 2, throughput: 4 },
@@ -727,7 +727,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "electromagnetic-control-rod",
         buildingId: "assembler",
     },
-    {
+    "coated-iron-canister": {
         inputs: [
             { itemId: "iron-plate", amount: 2, throughput: 30 },
             { itemId: "copper-sheet", amount: 1, throughput: 15 },
@@ -740,7 +740,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "coated-iron-canister",
         buildingId: "assembler",
     },
-    {
+    "empty-canister": {
         inputs: [{ itemId: "plastic", amount: 2, throughput: 30 }],
         outputs: [{ itemId: "empty-canister", amount: 4, throughput: 60 }],
         isManual: false,
@@ -750,7 +750,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "empty-canister",
         buildingId: "constructor",
     },
-    {
+    "steel-canister": {
         inputs: [{ itemId: "steel-ingot", amount: 3, throughput: 60 }],
         outputs: [{ itemId: "empty-canister", amount: 2, throughput: 40 }],
         isManual: false,
@@ -760,7 +760,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-canister",
         buildingId: "constructor",
     },
-    {
+    "unpackage-alumina-solution": {
         inputs: [{ itemId: "packaged-alumina-solution", amount: 2, throughput: 120 }],
         outputs: [
             { itemId: "alumina-solution", amount: 2, throughput: 120 },
@@ -773,7 +773,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-alumina-solution",
         buildingId: "packager",
     },
-    {
+    "unpackage-fuel": {
         inputs: [{ itemId: "packaged-fuel", amount: 2, throughput: 60 }],
         outputs: [
             { itemId: "fuel", amount: 2, throughput: 60 },
@@ -786,7 +786,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-fuel",
         buildingId: "packager",
     },
-    {
+    "unpackage-heavy-oil-residue": {
         inputs: [{ itemId: "packaged-heavy-oil-residue", amount: 2, throughput: 20 }],
         outputs: [
             { itemId: "heavy-oil-residue", amount: 2, throughput: 20 },
@@ -799,7 +799,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-heavy-oil-residue",
         buildingId: "packager",
     },
-    {
+    "unpackage-liquid-biofuel": {
         inputs: [{ itemId: "packaged-liquid-biofuel", amount: 2, throughput: 60 }],
         outputs: [
             { itemId: "liquid-biofuel", amount: 2, throughput: 60 },
@@ -812,7 +812,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-liquid-biofuel",
         buildingId: "packager",
     },
-    {
+    "unpackage-oil": {
         inputs: [{ itemId: "packaged-oil", amount: 2, throughput: 60 }],
         outputs: [
             { itemId: "crude-oil", amount: 2, throughput: 60 },
@@ -825,7 +825,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-oil",
         buildingId: "packager",
     },
-    {
+    "unpackage-turbofuel": {
         inputs: [{ itemId: "packaged-turbofuel", amount: 2, throughput: 20 }],
         outputs: [
             { itemId: "turbofuel", amount: 2, throughput: 20 },
@@ -838,7 +838,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-turbofuel",
         buildingId: "packager",
     },
-    {
+    "empty-fluid-tank": {
         inputs: [{ itemId: "aluminum-ingot", amount: 1, throughput: 60 }],
         outputs: [{ itemId: "empty-fluid-tank", amount: 1, throughput: 60 }],
         isManual: false,
@@ -848,7 +848,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "empty-fluid-tank",
         buildingId: "constructor",
     },
-    {
+    "unpackage-nitrogen-gas": {
         inputs: [{ itemId: "packaged-nitrogen-gas", amount: 1, throughput: 60 }],
         outputs: [
             { itemId: "nitrogen-gas", amount: 4, throughput: 240 },
@@ -861,7 +861,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-nitrogen-gas",
         buildingId: "packager",
     },
-    {
+    "encased-industrial-beam": {
         inputs: [
             { itemId: "steel-beam", amount: 4, throughput: 24 },
             { itemId: "concrete", amount: 5, throughput: 30 },
@@ -874,7 +874,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "encased-industrial-beam",
         buildingId: "assembler",
     },
-    {
+    "encased-industrial-pipe": {
         inputs: [
             { itemId: "steel-pipe", amount: 7, throughput: 28 },
             { itemId: "concrete", amount: 5, throughput: 20 },
@@ -887,7 +887,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "encased-industrial-pipe",
         buildingId: "assembler",
     },
-    {
+    "encased-plutonium-cell": {
         inputs: [
             { itemId: "plutonium-pellet", amount: 2, throughput: 10 },
             { itemId: "concrete", amount: 4, throughput: 20 },
@@ -900,7 +900,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "encased-plutonium-cell",
         buildingId: "assembler",
     },
-    {
+    "instant-plutonium-cell": {
         inputs: [
             { itemId: "non-fissile-uranium", amount: 150, throughput: 75 },
             { itemId: "aluminum-casing", amount: 20, throughput: 10 },
@@ -913,7 +913,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "instant-plutonium-cell",
         buildingId: "particle-accelerator",
     },
-    {
+    "infused-uranium-cell": {
         inputs: [
             { itemId: "uranium", amount: 5, throughput: 25 },
             { itemId: "silica", amount: 3, throughput: 15 },
@@ -928,7 +928,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "infused-uranium-cell",
         buildingId: "manufacturer",
     },
-    {
+    fabric: {
         inputs: [
             { itemId: "mycelia", amount: 1, throughput: 15 },
             { itemId: "biomass", amount: 5, throughput: 75 },
@@ -941,7 +941,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fabric",
         buildingId: "assembler",
     },
-    {
+    "polyester-fabric": {
         inputs: [
             { itemId: "polymer-resin", amount: 1, throughput: 30 },
             { itemId: "water", amount: 1, throughput: 30 },
@@ -954,7 +954,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "polyester-fabric",
         buildingId: "refinery",
     },
-    {
+    "diluted-fuel": {
         inputs: [
             { itemId: "heavy-oil-residue", amount: 5, throughput: 50 },
             { itemId: "water", amount: 10, throughput: 100 },
@@ -967,7 +967,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "diluted-fuel",
         buildingId: "blender",
     },
-    {
+    "residual-fuel": {
         inputs: [{ itemId: "heavy-oil-residue", amount: 6, throughput: 60 }],
         outputs: [{ itemId: "fuel", amount: 4, throughput: 40 }],
         isManual: false,
@@ -977,7 +977,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "residual-fuel",
         buildingId: "refinery",
     },
-    {
+    "fused-modular-frame": {
         inputs: [
             { itemId: "heavy-modular-frame", amount: 1, throughput: 1.5 },
             { itemId: "aluminum-casing", amount: 50, throughput: 75 },
@@ -991,7 +991,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fused-modular-frame",
         buildingId: "blender",
     },
-    {
+    "heat-fused-frame": {
         inputs: [
             { itemId: "heavy-modular-frame", amount: 1, throughput: 3 },
             { itemId: "aluminum-ingot", amount: 50, throughput: 150 },
@@ -1006,7 +1006,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heat-fused-frame",
         buildingId: "blender",
     },
-    {
+    "heat-exchanger": {
         inputs: [
             { itemId: "aluminum-casing", amount: 3, throughput: 30 },
             { itemId: "rubber", amount: 3, throughput: 30 },
@@ -1019,7 +1019,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heat-exchanger",
         buildingId: "assembler",
     },
-    {
+    "heat-sink": {
         inputs: [
             { itemId: "alclad-aluminum-sheet", amount: 5, throughput: 37.5 },
             { itemId: "copper-sheet", amount: 3, throughput: 22.5 },
@@ -1032,7 +1032,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heat-sink",
         buildingId: "assembler",
     },
-    {
+    "heavy-encased-frame": {
         inputs: [
             { itemId: "modular-frame", amount: 8, throughput: 7.5 },
             { itemId: "encased-industrial-beam", amount: 10, throughput: 9.375 },
@@ -1047,7 +1047,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heavy-encased-frame",
         buildingId: "manufacturer",
     },
-    {
+    "heavy-flexible-frame": {
         inputs: [
             { itemId: "modular-frame", amount: 5, throughput: 18.75 },
             { itemId: "encased-industrial-beam", amount: 3, throughput: 11.25 },
@@ -1062,7 +1062,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heavy-flexible-frame",
         buildingId: "manufacturer",
     },
-    {
+    "heavy-modular-frame": {
         inputs: [
             { itemId: "modular-frame", amount: 5, throughput: 10 },
             { itemId: "steel-pipe", amount: 15, throughput: 30 },
@@ -1077,7 +1077,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heavy-modular-frame",
         buildingId: "manufacturer",
     },
-    {
+    "heavy-oil-residue": {
         inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
         outputs: [
             { itemId: "heavy-oil-residue", amount: 4, throughput: 40 },
@@ -1090,7 +1090,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "heavy-oil-residue",
         buildingId: "refinery",
     },
-    {
+    plastic: {
         inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
         outputs: [
             { itemId: "plastic", amount: 2, throughput: 20 },
@@ -1103,7 +1103,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plastic",
         buildingId: "refinery",
     },
-    {
+    "polymer-resin": {
         inputs: [{ itemId: "crude-oil", amount: 6, throughput: 60 }],
         outputs: [
             { itemId: "polymer-resin", amount: 13, throughput: 130 },
@@ -1116,7 +1116,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "polymer-resin",
         buildingId: "refinery",
     },
-    {
+    rubber: {
         inputs: [{ itemId: "crude-oil", amount: 3, throughput: 30 }],
         outputs: [
             { itemId: "rubber", amount: 2, throughput: 20 },
@@ -1129,7 +1129,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "rubber",
         buildingId: "refinery",
     },
-    {
+    "high-speed-connector": {
         inputs: [
             { itemId: "quickwire", amount: 56, throughput: 210 },
             { itemId: "cable", amount: 10, throughput: 37.5 },
@@ -1143,7 +1143,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "high-speed-connector",
         buildingId: "manufacturer",
     },
-    {
+    "silicon-high-speed-connector": {
         inputs: [
             { itemId: "quickwire", amount: 60, throughput: 90 },
             { itemId: "silica", amount: 25, throughput: 37.5 },
@@ -1157,7 +1157,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "silicon-high-speed-connector",
         buildingId: "manufacturer",
     },
-    {
+    "iron-alloy-ingot": {
         inputs: [
             { itemId: "iron-ore", amount: 2, throughput: 20 },
             { itemId: "copper-ore", amount: 2, throughput: 20 },
@@ -1170,7 +1170,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "iron-alloy-ingot",
         buildingId: "foundry",
     },
-    {
+    "iron-ingot": {
         inputs: [{ itemId: "iron-ore", amount: 1, throughput: 30 }],
         outputs: [{ itemId: "iron-ingot", amount: 1, throughput: 30 }],
         isManual: false,
@@ -1180,7 +1180,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "iron-ingot",
         buildingId: "smelter",
     },
-    {
+    "pure-iron-ingot": {
         inputs: [
             { itemId: "iron-ore", amount: 7, throughput: 35 },
             { itemId: "water", amount: 4, throughput: 20 },
@@ -1193,7 +1193,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pure-iron-ingot",
         buildingId: "refinery",
     },
-    {
+    "coated-iron-plate": {
         inputs: [
             { itemId: "iron-ingot", amount: 10, throughput: 50 },
             { itemId: "plastic", amount: 2, throughput: 10 },
@@ -1206,7 +1206,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "coated-iron-plate",
         buildingId: "assembler",
     },
-    {
+    "iron-plate": {
         inputs: [{ itemId: "iron-ingot", amount: 3, throughput: 30 }],
         outputs: [{ itemId: "iron-plate", amount: 2, throughput: 20 }],
         isManual: false,
@@ -1216,7 +1216,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "iron-plate",
         buildingId: "constructor",
     },
-    {
+    "steel-coated-plate": {
         inputs: [
             { itemId: "steel-ingot", amount: 3, throughput: 7.5 },
             { itemId: "plastic", amount: 2, throughput: 5 },
@@ -1229,7 +1229,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-coated-plate",
         buildingId: "assembler",
     },
-    {
+    "iron-rod": {
         inputs: [{ itemId: "iron-ingot", amount: 1, throughput: 15 }],
         outputs: [{ itemId: "iron-rod", amount: 1, throughput: 15 }],
         isManual: false,
@@ -1239,7 +1239,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "iron-rod",
         buildingId: "constructor",
     },
-    {
+    "steel-rod": {
         inputs: [{ itemId: "steel-ingot", amount: 1, throughput: 12 }],
         outputs: [{ itemId: "iron-rod", amount: 4, throughput: 48 }],
         isManual: false,
@@ -1249,7 +1249,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-rod",
         buildingId: "constructor",
     },
-    {
+    "liquid-biofuel": {
         inputs: [
             { itemId: "solid-biofuel", amount: 6, throughput: 90 },
             { itemId: "water", amount: 3, throughput: 45 },
@@ -1262,7 +1262,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "liquid-biofuel",
         buildingId: "refinery",
     },
-    {
+    "modular-engine": {
         inputs: [
             { itemId: "motor", amount: 2, throughput: 2 },
             { itemId: "rubber", amount: 15, throughput: 15 },
@@ -1276,7 +1276,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "modular-engine",
         buildingId: "manufacturer",
     },
-    {
+    "bolted-frame": {
         inputs: [
             { itemId: "reinforced-iron-plate", amount: 3, throughput: 7.5 },
             { itemId: "screw", amount: 56, throughput: 140 },
@@ -1289,7 +1289,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "bolted-frame",
         buildingId: "assembler",
     },
-    {
+    "modular-frame": {
         inputs: [
             { itemId: "reinforced-iron-plate", amount: 3, throughput: 3 },
             { itemId: "iron-rod", amount: 12, throughput: 12 },
@@ -1302,7 +1302,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "modular-frame",
         buildingId: "assembler",
     },
-    {
+    "steeled-frame": {
         inputs: [
             { itemId: "reinforced-iron-plate", amount: 2, throughput: 2 },
             { itemId: "steel-pipe", amount: 10, throughput: 10 },
@@ -1315,7 +1315,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steeled-frame",
         buildingId: "assembler",
     },
-    {
+    "electric-motor": {
         inputs: [
             { itemId: "electromagnetic-control-rod", amount: 1, throughput: 3.75 },
             { itemId: "rotor", amount: 2, throughput: 7.5 },
@@ -1328,7 +1328,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "electric-motor",
         buildingId: "assembler",
     },
-    {
+    motor: {
         inputs: [
             { itemId: "rotor", amount: 2, throughput: 10 },
             { itemId: "stator", amount: 2, throughput: 10 },
@@ -1341,7 +1341,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "motor",
         buildingId: "assembler",
     },
-    {
+    "rigour-motor": {
         inputs: [
             { itemId: "rotor", amount: 3, throughput: 3.75 },
             { itemId: "stator", amount: 3, throughput: 3.75 },
@@ -1355,7 +1355,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "rigour-motor",
         buildingId: "manufacturer",
     },
-    {
+    "nitric-acid": {
         inputs: [
             { itemId: "nitrogen-gas", amount: 12, throughput: 120 },
             { itemId: "water", amount: 3, throughput: 30 },
@@ -1369,7 +1369,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "nitric-acid",
         buildingId: "blender",
     },
-    {
+    "unpackage-nitric-acid": {
         inputs: [{ itemId: "packaged-nitric-acid", amount: 1, throughput: 20 }],
         outputs: [
             { itemId: "nitric-acid", amount: 1, throughput: 20 },
@@ -1382,7 +1382,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-nitric-acid",
         buildingId: "packager",
     },
-    {
+    "nuclear-pasta": {
         inputs: [
             { itemId: "copper-powder", amount: 200, throughput: 100 },
             { itemId: "pressure-conversion-cube", amount: 1, throughput: 0.5 },
@@ -1395,7 +1395,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "nuclear-pasta",
         buildingId: "particle-accelerator",
     },
-    {
+    "packaged-alumina-solution": {
         inputs: [
             { itemId: "alumina-solution", amount: 2, throughput: 120 },
             { itemId: "empty-canister", amount: 2, throughput: 120 },
@@ -1408,7 +1408,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-alumina-solution",
         buildingId: "packager",
     },
-    {
+    "diluted-packaged-fuel": {
         inputs: [
             { itemId: "heavy-oil-residue", amount: 1, throughput: 30 },
             { itemId: "packaged-water", amount: 2, throughput: 60 },
@@ -1421,7 +1421,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "diluted-packaged-fuel",
         buildingId: "refinery",
     },
-    {
+    "packaged-fuel": {
         inputs: [
             { itemId: "fuel", amount: 2, throughput: 40 },
             { itemId: "empty-canister", amount: 2, throughput: 40 },
@@ -1434,7 +1434,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-fuel",
         buildingId: "packager",
     },
-    {
+    "packaged-heavy-oil-residue": {
         inputs: [
             { itemId: "heavy-oil-residue", amount: 2, throughput: 30 },
             { itemId: "empty-canister", amount: 2, throughput: 30 },
@@ -1447,7 +1447,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-heavy-oil-residue",
         buildingId: "packager",
     },
-    {
+    "packaged-liquid-biofuel": {
         inputs: [
             { itemId: "liquid-biofuel", amount: 2, throughput: 40 },
             { itemId: "empty-canister", amount: 2, throughput: 40 },
@@ -1460,7 +1460,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-liquid-biofuel",
         buildingId: "packager",
     },
-    {
+    "packaged-nitric-acid": {
         inputs: [
             { itemId: "nitric-acid", amount: 1, throughput: 30 },
             { itemId: "empty-fluid-tank", amount: 1, throughput: 30 },
@@ -1473,7 +1473,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-nitric-acid",
         buildingId: "packager",
     },
-    {
+    "packaged-nitrogen-gas": {
         inputs: [
             { itemId: "nitrogen-gas", amount: 4, throughput: 240 },
             { itemId: "empty-fluid-tank", amount: 1, throughput: 60 },
@@ -1486,7 +1486,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-nitrogen-gas",
         buildingId: "packager",
     },
-    {
+    "packaged-oil": {
         inputs: [
             { itemId: "crude-oil", amount: 2, throughput: 30 },
             { itemId: "empty-canister", amount: 2, throughput: 30 },
@@ -1499,7 +1499,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-oil",
         buildingId: "packager",
     },
-    {
+    "packaged-sulfuric-acid": {
         inputs: [
             { itemId: "sulfuric-acid", amount: 2, throughput: 40 },
             { itemId: "empty-canister", amount: 2, throughput: 40 },
@@ -1512,7 +1512,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-sulfuric-acid",
         buildingId: "packager",
     },
-    {
+    "packaged-turbofuel": {
         inputs: [
             { itemId: "turbofuel", amount: 2, throughput: 20 },
             { itemId: "empty-canister", amount: 2, throughput: 20 },
@@ -1525,7 +1525,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-turbofuel",
         buildingId: "packager",
     },
-    {
+    "packaged-water": {
         inputs: [
             { itemId: "water", amount: 2, throughput: 60 },
             { itemId: "empty-canister", amount: 2, throughput: 60 },
@@ -1538,7 +1538,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "packaged-water",
         buildingId: "packager",
     },
-    {
+    "petroleum-coke": {
         inputs: [{ itemId: "heavy-oil-residue", amount: 4, throughput: 40 }],
         outputs: [{ itemId: "petroleum-coke", amount: 12, throughput: 120 }],
         isManual: false,
@@ -1548,7 +1548,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "petroleum-coke",
         buildingId: "refinery",
     },
-    {
+    "recycled-plastic": {
         inputs: [
             { itemId: "rubber", amount: 6, throughput: 30 },
             { itemId: "fuel", amount: 6, throughput: 30 },
@@ -1561,7 +1561,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "recycled-plastic",
         buildingId: "refinery",
     },
-    {
+    "residual-plastic": {
         inputs: [
             { itemId: "polymer-resin", amount: 6, throughput: 60 },
             { itemId: "water", amount: 2, throughput: 20 },
@@ -1574,7 +1574,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "residual-plastic",
         buildingId: "refinery",
     },
-    {
+    "plutonium-fuel-rod": {
         inputs: [
             { itemId: "encased-plutonium-cell", amount: 30, throughput: 7.5 },
             { itemId: "steel-beam", amount: 18, throughput: 4.5 },
@@ -1589,7 +1589,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plutonium-fuel-rod",
         buildingId: "manufacturer",
     },
-    {
+    "plutonium-fuel-unit": {
         inputs: [
             { itemId: "encased-plutonium-cell", amount: 20, throughput: 10 },
             { itemId: "pressure-conversion-cube", amount: 1, throughput: 0.5 },
@@ -1602,7 +1602,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plutonium-fuel-unit",
         buildingId: "assembler",
     },
-    {
+    "plutonium-pellet": {
         inputs: [
             { itemId: "non-fissile-uranium", amount: 100, throughput: 100 },
             { itemId: "uranium-waste", amount: 25, throughput: 25 },
@@ -1615,7 +1615,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plutonium-pellet",
         buildingId: "particle-accelerator",
     },
-    {
+    "plutonium-waste": {
         inputs: [
             { itemId: "plutonium-fuel-rod", amount: 1, throughput: 0.1 },
             { itemId: "water", amount: 2400, throughput: 240 },
@@ -1628,7 +1628,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plutonium-waste",
         buildingId: "nuclear-power-plant",
     },
-    {
+    fuel: {
         inputs: [{ itemId: "crude-oil", amount: 6, throughput: 60 }],
         outputs: [
             { itemId: "fuel", amount: 4, throughput: 40 },
@@ -1641,7 +1641,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fuel",
         buildingId: "refinery",
     },
-    {
+    "pressure-conversion-cube": {
         inputs: [
             { itemId: "fused-modular-frame", amount: 1, throughput: 1 },
             { itemId: "radio-control-unit", amount: 2, throughput: 2 },
@@ -1654,7 +1654,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pressure-conversion-cube",
         buildingId: "assembler",
     },
-    {
+    "pure-quartz-crystal": {
         inputs: [
             { itemId: "raw-quartz", amount: 9, throughput: 67.5 },
             { itemId: "water", amount: 5, throughput: 37.5 },
@@ -1667,7 +1667,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "pure-quartz-crystal",
         buildingId: "refinery",
     },
-    {
+    "quartz-crystal": {
         inputs: [{ itemId: "raw-quartz", amount: 5, throughput: 37.5 }],
         outputs: [{ itemId: "quartz-crystal", amount: 3, throughput: 22.5 }],
         isManual: false,
@@ -1677,7 +1677,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "quartz-crystal",
         buildingId: "constructor",
     },
-    {
+    "fused-quickwire": {
         inputs: [
             { itemId: "caterium-ingot", amount: 1, throughput: 7.5 },
             { itemId: "copper-ingot", amount: 5, throughput: 37.5 },
@@ -1690,7 +1690,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fused-quickwire",
         buildingId: "assembler",
     },
-    {
+    quickwire: {
         inputs: [{ itemId: "caterium-ingot", amount: 1, throughput: 12 }],
         outputs: [{ itemId: "quickwire", amount: 5, throughput: 60 }],
         isManual: false,
@@ -1700,7 +1700,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "quickwire",
         buildingId: "constructor",
     },
-    {
+    "radio-connection-unit": {
         inputs: [
             { itemId: "heat-sink", amount: 4, throughput: 15 },
             { itemId: "high-speed-connector", amount: 2, throughput: 7.5 },
@@ -1714,7 +1714,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "radio-connection-unit",
         buildingId: "manufacturer",
     },
-    {
+    "radio-control-system": {
         inputs: [
             { itemId: "crystal-oscillator", amount: 1, throughput: 1.5 },
             { itemId: "circuit-board", amount: 10, throughput: 15 },
@@ -1729,7 +1729,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "radio-control-system",
         buildingId: "manufacturer",
     },
-    {
+    "radio-control-unit": {
         inputs: [
             { itemId: "aluminum-casing", amount: 32, throughput: 40 },
             { itemId: "crystal-oscillator", amount: 1, throughput: 1.25 },
@@ -1743,7 +1743,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "radio-control-unit",
         buildingId: "manufacturer",
     },
-    {
+    "adhered-iron-plate": {
         inputs: [
             { itemId: "iron-plate", amount: 3, throughput: 11.25 },
             { itemId: "rubber", amount: 1, throughput: 3.75 },
@@ -1756,7 +1756,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "adhered-iron-plate",
         buildingId: "assembler",
     },
-    {
+    "bolted-iron-plate": {
         inputs: [
             { itemId: "iron-plate", amount: 18, throughput: 90 },
             { itemId: "screw", amount: 50, throughput: 250 },
@@ -1769,7 +1769,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "bolted-iron-plate",
         buildingId: "assembler",
     },
-    {
+    "reinforced-iron-plate": {
         inputs: [
             { itemId: "iron-plate", amount: 6, throughput: 30 },
             { itemId: "screw", amount: 12, throughput: 60 },
@@ -1782,7 +1782,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "reinforced-iron-plate",
         buildingId: "assembler",
     },
-    {
+    "stitched-iron-plate": {
         inputs: [
             { itemId: "iron-plate", amount: 10, throughput: 18.75 },
             { itemId: "wire", amount: 20, throughput: 37.5 },
@@ -1795,7 +1795,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "stitched-iron-plate",
         buildingId: "assembler",
     },
-    {
+    "copper-rotor": {
         inputs: [
             { itemId: "copper-sheet", amount: 6, throughput: 22.5 },
             { itemId: "screw", amount: 52, throughput: 195 },
@@ -1808,7 +1808,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "copper-rotor",
         buildingId: "assembler",
     },
-    {
+    rotor: {
         inputs: [
             { itemId: "iron-rod", amount: 5, throughput: 20 },
             { itemId: "screw", amount: 25, throughput: 100 },
@@ -1821,7 +1821,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "rotor",
         buildingId: "assembler",
     },
-    {
+    "steel-rotor": {
         inputs: [
             { itemId: "steel-pipe", amount: 2, throughput: 10 },
             { itemId: "wire", amount: 6, throughput: 30 },
@@ -1834,7 +1834,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-rotor",
         buildingId: "assembler",
     },
-    {
+    "recycled-rubber": {
         inputs: [
             { itemId: "plastic", amount: 6, throughput: 30 },
             { itemId: "fuel", amount: 6, throughput: 30 },
@@ -1847,7 +1847,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "recycled-rubber",
         buildingId: "refinery",
     },
-    {
+    "residual-rubber": {
         inputs: [
             { itemId: "polymer-resin", amount: 4, throughput: 40 },
             { itemId: "water", amount: 4, throughput: 40 },
@@ -1860,7 +1860,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "residual-rubber",
         buildingId: "refinery",
     },
-    {
+    "cast-screw": {
         inputs: [{ itemId: "iron-ingot", amount: 5, throughput: 12.5 }],
         outputs: [{ itemId: "screw", amount: 20, throughput: 50 }],
         isManual: false,
@@ -1870,7 +1870,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "cast-screw",
         buildingId: "constructor",
     },
-    {
+    screw: {
         inputs: [{ itemId: "iron-rod", amount: 1, throughput: 10 }],
         outputs: [{ itemId: "screw", amount: 4, throughput: 40 }],
         isManual: false,
@@ -1880,7 +1880,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "screw",
         buildingId: "constructor",
     },
-    {
+    "steel-screw": {
         inputs: [{ itemId: "steel-beam", amount: 1, throughput: 5 }],
         outputs: [{ itemId: "screw", amount: 52, throughput: 260 }],
         isManual: false,
@@ -1890,7 +1890,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-screw",
         buildingId: "constructor",
     },
-    {
+    "cheap-silica": {
         inputs: [
             { itemId: "raw-quartz", amount: 3, throughput: 11.25 },
             { itemId: "limestone", amount: 5, throughput: 18.75 },
@@ -1903,7 +1903,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "cheap-silica",
         buildingId: "assembler",
     },
-    {
+    silica: {
         inputs: [{ itemId: "raw-quartz", amount: 3, throughput: 22.5 }],
         outputs: [{ itemId: "silica", amount: 5, throughput: 37.5 }],
         isManual: false,
@@ -1913,7 +1913,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "silica",
         buildingId: "constructor",
     },
-    {
+    "plastic-smart-plating": {
         inputs: [
             { itemId: "reinforced-iron-plate", amount: 1, throughput: 2.5 },
             { itemId: "rotor", amount: 1, throughput: 2.5 },
@@ -1927,7 +1927,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "plastic-smart-plating",
         buildingId: "manufacturer",
     },
-    {
+    "smart-plating": {
         inputs: [
             { itemId: "reinforced-iron-plate", amount: 1, throughput: 2 },
             { itemId: "rotor", amount: 1, throughput: 2 },
@@ -1940,7 +1940,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "smart-plating",
         buildingId: "assembler",
     },
-    {
+    "solid-biofuel": {
         inputs: [{ itemId: "biomass", amount: 8, throughput: 120 }],
         outputs: [{ itemId: "solid-biofuel", amount: 4, throughput: 60 }],
         isManual: false,
@@ -1950,7 +1950,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "solid-biofuel",
         buildingId: "constructor",
     },
-    {
+    "quickwire-stator": {
         inputs: [
             { itemId: "steel-pipe", amount: 4, throughput: 16 },
             { itemId: "quickwire", amount: 15, throughput: 60 },
@@ -1963,7 +1963,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "quickwire-stator",
         buildingId: "assembler",
     },
-    {
+    stator: {
         inputs: [
             { itemId: "steel-pipe", amount: 3, throughput: 15 },
             { itemId: "wire", amount: 8, throughput: 40 },
@@ -1976,7 +1976,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "stator",
         buildingId: "assembler",
     },
-    {
+    "steel-beam": {
         inputs: [{ itemId: "steel-ingot", amount: 4, throughput: 60 }],
         outputs: [{ itemId: "steel-beam", amount: 1, throughput: 15 }],
         isManual: false,
@@ -1986,7 +1986,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-beam",
         buildingId: "constructor",
     },
-    {
+    "coke-steel-ingot": {
         inputs: [
             { itemId: "iron-ore", amount: 15, throughput: 75 },
             { itemId: "petroleum-coke", amount: 15, throughput: 75 },
@@ -1999,7 +1999,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "coke-steel-ingot",
         buildingId: "foundry",
     },
-    {
+    "compacted-steel-ingot": {
         inputs: [
             { itemId: "iron-ore", amount: 6, throughput: 22.5 },
             { itemId: "compacted-coal", amount: 3, throughput: 11.25 },
@@ -2012,7 +2012,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "compacted-steel-ingot",
         buildingId: "foundry",
     },
-    {
+    "solid-steel-ingot": {
         inputs: [
             { itemId: "iron-ingot", amount: 2, throughput: 40 },
             { itemId: "coal", amount: 2, throughput: 40 },
@@ -2025,7 +2025,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "solid-steel-ingot",
         buildingId: "foundry",
     },
-    {
+    "steel-ingot": {
         inputs: [
             { itemId: "iron-ore", amount: 3, throughput: 45 },
             { itemId: "coal", amount: 3, throughput: 45 },
@@ -2038,7 +2038,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-ingot",
         buildingId: "foundry",
     },
-    {
+    "steel-pipe": {
         inputs: [{ itemId: "steel-ingot", amount: 3, throughput: 30 }],
         outputs: [{ itemId: "steel-pipe", amount: 2, throughput: 20 }],
         isManual: false,
@@ -2048,7 +2048,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "steel-pipe",
         buildingId: "constructor",
     },
-    {
+    "encased-uranium-cell": {
         inputs: [
             { itemId: "uranium", amount: 10, throughput: 50 },
             { itemId: "concrete", amount: 3, throughput: 15 },
@@ -2065,7 +2065,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "encased-uranium-cell",
         buildingId: "blender",
     },
-    {
+    "sulfuric-acid": {
         inputs: [
             { itemId: "sulfur", amount: 5, throughput: 50 },
             { itemId: "water", amount: 5, throughput: 50 },
@@ -2078,7 +2078,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "sulfuric-acid",
         buildingId: "refinery",
     },
-    {
+    "unpackage-sulfuric-acid": {
         inputs: [{ itemId: "packaged-sulfuric-acid", amount: 1, throughput: 60 }],
         outputs: [
             { itemId: "sulfuric-acid", amount: 1, throughput: 60 },
@@ -2091,7 +2091,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-sulfuric-acid",
         buildingId: "packager",
     },
-    {
+    "oc-supercomputer": {
         inputs: [
             { itemId: "radio-control-unit", amount: 3, throughput: 9 },
             { itemId: "cooling-system", amount: 3, throughput: 9 },
@@ -2104,7 +2104,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "oc-supercomputer",
         buildingId: "assembler",
     },
-    {
+    "super-state-computer": {
         inputs: [
             { itemId: "computer", amount: 3, throughput: 3.6 },
             { itemId: "electromagnetic-control-rod", amount: 2, throughput: 2.4 },
@@ -2119,7 +2119,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "super-state-computer",
         buildingId: "manufacturer",
     },
-    {
+    supercomputer: {
         inputs: [
             { itemId: "computer", amount: 2, throughput: 3.75 },
             { itemId: "ai-limiter", amount: 2, throughput: 3.75 },
@@ -2134,7 +2134,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "supercomputer",
         buildingId: "manufacturer",
     },
-    {
+    "turbo-electric-motor": {
         inputs: [
             { itemId: "motor", amount: 7, throughput: 6.5625 },
             { itemId: "radio-control-unit", amount: 9, throughput: 8.4375 },
@@ -2149,7 +2149,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbo-electric-motor",
         buildingId: "manufacturer",
     },
-    {
+    "turbo-motor": {
         inputs: [
             { itemId: "cooling-system", amount: 4, throughput: 7.5 },
             { itemId: "radio-control-unit", amount: 2, throughput: 3.75 },
@@ -2164,7 +2164,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbo-motor",
         buildingId: "manufacturer",
     },
-    {
+    "turbo-pressure-motor": {
         inputs: [
             { itemId: "motor", amount: 4, throughput: 7.5 },
             { itemId: "pressure-conversion-cube", amount: 1, throughput: 1.875 },
@@ -2179,7 +2179,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbo-pressure-motor",
         buildingId: "manufacturer",
     },
-    {
+    "turbo-blend-fuel": {
         inputs: [
             { itemId: "fuel", amount: 2, throughput: 15 },
             { itemId: "heavy-oil-residue", amount: 4, throughput: 30 },
@@ -2194,7 +2194,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbo-blend-fuel",
         buildingId: "blender",
     },
-    {
+    "turbo-heavy-fuel": {
         inputs: [
             { itemId: "heavy-oil-residue", amount: 5, throughput: 37.5 },
             { itemId: "compacted-coal", amount: 4, throughput: 30 },
@@ -2207,7 +2207,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbo-heavy-fuel",
         buildingId: "refinery",
     },
-    {
+    turbofuel: {
         inputs: [
             { itemId: "fuel", amount: 6, throughput: 22.5 },
             { itemId: "compacted-coal", amount: 4, throughput: 15 },
@@ -2220,7 +2220,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "turbofuel",
         buildingId: "refinery",
     },
-    {
+    "uranium-fuel-rod": {
         inputs: [
             { itemId: "encased-uranium-cell", amount: 50, throughput: 20 },
             { itemId: "encased-industrial-beam", amount: 3, throughput: 1.2 },
@@ -2234,7 +2234,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "uranium-fuel-rod",
         buildingId: "manufacturer",
     },
-    {
+    "uranium-fuel-unit": {
         inputs: [
             { itemId: "encased-uranium-cell", amount: 100, throughput: 20 },
             { itemId: "electromagnetic-control-rod", amount: 10, throughput: 2 },
@@ -2249,7 +2249,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "uranium-fuel-unit",
         buildingId: "manufacturer",
     },
-    {
+    "uranium-waste": {
         inputs: [
             { itemId: "uranium-fuel-rod", amount: 1, throughput: 0.2 },
             { itemId: "water", amount: 1200, throughput: 240 },
@@ -2262,7 +2262,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "uranium-waste",
         buildingId: "nuclear-power-plant",
     },
-    {
+    "flexible-framework": {
         inputs: [
             { itemId: "modular-frame", amount: 1, throughput: 3.75 },
             { itemId: "steel-beam", amount: 6, throughput: 22.5 },
@@ -2276,7 +2276,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "flexible-framework",
         buildingId: "manufacturer",
     },
-    {
+    "versatile-framework": {
         inputs: [
             { itemId: "modular-frame", amount: 1, throughput: 2.5 },
             { itemId: "steel-beam", amount: 12, throughput: 30 },
@@ -2289,7 +2289,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "versatile-framework",
         buildingId: "assembler",
     },
-    {
+    "aluminum-scrap": {
         inputs: [
             { itemId: "alumina-solution", amount: 4, throughput: 240 },
             { itemId: "coal", amount: 2, throughput: 120 },
@@ -2305,7 +2305,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "aluminum-scrap",
         buildingId: "refinery",
     },
-    {
+    battery: {
         inputs: [
             { itemId: "sulfuric-acid", amount: 2.5, throughput: 50 },
             { itemId: "alumina-solution", amount: 2, throughput: 40 },
@@ -2322,7 +2322,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "battery",
         buildingId: "blender",
     },
-    {
+    "electrode---aluminum-scrap": {
         inputs: [
             { itemId: "alumina-solution", amount: 12, throughput: 180 },
             { itemId: "petroleum-coke", amount: 4, throughput: 60 },
@@ -2338,7 +2338,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "electrode---aluminum-scrap",
         buildingId: "refinery",
     },
-    {
+    "fertile-uranium": {
         inputs: [
             { itemId: "uranium", amount: 5, throughput: 25 },
             { itemId: "uranium-waste", amount: 5, throughput: 25 },
@@ -2356,7 +2356,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fertile-uranium",
         buildingId: "blender",
     },
-    {
+    "instant-scrap": {
         inputs: [
             { itemId: "bauxite", amount: 15, throughput: 150 },
             { itemId: "coal", amount: 10, throughput: 100 },
@@ -2374,7 +2374,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "instant-scrap",
         buildingId: "blender",
     },
-    {
+    "non-fissile-uranium": {
         inputs: [
             { itemId: "uranium-waste", amount: 15, throughput: 37.5 },
             { itemId: "silica", amount: 10, throughput: 25 },
@@ -2392,7 +2392,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "non-fissile-uranium",
         buildingId: "blender",
     },
-    {
+    "unpackage-water": {
         inputs: [{ itemId: "packaged-water", amount: 2, throughput: 120 }],
         outputs: [
             { itemId: "water", amount: 2, throughput: 120 },
@@ -2405,7 +2405,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "unpackage-water",
         buildingId: "packager",
     },
-    {
+    water: {
         inputs: [],
         outputs: [{ itemId: "water", amount: 2, throughput: 120 }],
         isManual: false,
@@ -2415,7 +2415,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "water",
         buildingId: "water-extractor",
     },
-    {
+    "caterium-wire": {
         inputs: [{ itemId: "caterium-ingot", amount: 1, throughput: 15 }],
         outputs: [{ itemId: "wire", amount: 8, throughput: 120 }],
         isManual: false,
@@ -2425,7 +2425,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "caterium-wire",
         buildingId: "constructor",
     },
-    {
+    "fused-wire": {
         inputs: [
             { itemId: "copper-ingot", amount: 4, throughput: 12 },
             { itemId: "caterium-ingot", amount: 1, throughput: 3 },
@@ -2438,7 +2438,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "fused-wire",
         buildingId: "assembler",
     },
-    {
+    "iron-wire": {
         inputs: [{ itemId: "iron-ingot", amount: 5, throughput: 12.5 }],
         outputs: [{ itemId: "wire", amount: 9, throughput: 22.5 }],
         isManual: false,
@@ -2448,7 +2448,7 @@ export const RECIPES: readonly Recipe[] = [
         id: "iron-wire",
         buildingId: "constructor",
     },
-    {
+    wire: {
         inputs: [{ itemId: "copper-ingot", amount: 1, throughput: 15 }],
         outputs: [{ itemId: "wire", amount: 2, throughput: 30 }],
         isManual: false,
@@ -2458,4 +2458,4 @@ export const RECIPES: readonly Recipe[] = [
         id: "wire",
         buildingId: "constructor",
     },
-];
+};

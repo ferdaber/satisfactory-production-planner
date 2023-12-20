@@ -18,6 +18,7 @@ export interface LinkedRecipeIOFeedLink {
 export interface LinkedRecipeIOFeed {
     calcData: LinkedRecipeCalcData;
     link: LinkedRecipeIOFeedLink | null;
+    isRecycle?: boolean;
 }
 
 export interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | RecipeOutput> {
@@ -69,11 +70,16 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
         const primaryRecipes = matchingRecipes.filter((recipe) => !recipe.isAlternate && !recipe.isManual);
         const recipe = primaryRecipes.sort((a, b) => {
             // silly heuristic:
+            // see if there exists a recipe that has the same ID as the item
             // ignore all "Unpackage X recipes"
             // then for two competing recipes, pick the one where the index of the output in the recipe is the lowest (it's the game's "intended" primary recipe)
             // if they tie, check for the one where it is the *only* output
             // if that still ties, use the one with the highest throughput
             // if that still ties, use the one with the highest amount per cycle
+            const sameIdSort = Number(b.id === desiredItem.id) - Number(a.id === desiredItem.id);
+            if (sameIdSort) {
+                return sameIdSort;
+            }
             const unpackageSort = Number(a.id.includes("unpackage-")) - Number(b.id.includes("unpackage-"));
             if (unpackageSort) {
                 return unpackageSort;
@@ -210,11 +216,13 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     oppositeFeed: unlinkedOutput.feed,
                     recipe: unlinkedOutput.recipe,
                 },
+                isRecycle: true,
             };
             unlinkedOutput.feed.link = {
                 oppositeFeed: feed,
                 recipe: receivingRecipe,
             };
+            unlinkedOutput.feed.isRecycle = true;
             existingInput.feeds.push(feed);
         }
     }

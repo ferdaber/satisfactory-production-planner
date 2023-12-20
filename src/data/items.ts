@@ -1,7 +1,7 @@
 import type { Item } from "../types/item";
 
-export const ITEMS: readonly Item[] = [
-    {
+export const ITEMS: Readonly<Record<string, Item>> = {
+    "alien-remains": {
         id: "alien-remains",
         name: "Alien Remains",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Stinger_Remains",
@@ -11,9 +11,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/alien-remains.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    bauxite: {
         id: "bauxite",
         name: "Bauxite",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Bauxite",
@@ -23,9 +22,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/bauxite.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "caterium-ore": {
         id: "caterium-ore",
         name: "Caterium Ore",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Caterium_Ore",
@@ -35,9 +33,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/caterium-ore.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    coal: {
         id: "coal",
         name: "Coal",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Coal",
@@ -47,9 +44,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/coal.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "copper-ore": {
         id: "copper-ore",
         name: "Copper Ore",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Copper_Ore",
@@ -59,9 +55,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/copper-ore.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "crude-oil": {
         id: "crude-oil",
         name: "Crude Oil",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Crude_Oil",
@@ -71,9 +66,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/crude-oil.png",
         isFluid: true,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "iron-ore": {
         id: "iron-ore",
         name: "Iron Ore",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Iron_Ore",
@@ -83,9 +77,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/iron-ore.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    leaves: {
         id: "leaves",
         name: "Leaves",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Leaves",
@@ -95,9 +88,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/leaves.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    limestone: {
         id: "limestone",
         name: "Limestone",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Limestone",
@@ -107,9 +99,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/limestone.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    mycelia: {
         id: "mycelia",
         name: "Mycelia",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Mycelia",
@@ -119,9 +110,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/mycelia.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "nitrogen-gas": {
         id: "nitrogen-gas",
         name: "Nitrogen Gas",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Nitrogen_Gas",
@@ -131,9 +121,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/nitrogen-gas.png",
         isFluid: true,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "raw-quartz": {
         id: "raw-quartz",
         name: "Raw Quartz",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Raw_Quartz",
@@ -143,9 +132,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/raw-quartz.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    sulfur: {
         id: "sulfur",
         name: "Sulfur",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Sulfur",
@@ -155,9 +143,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/sulfur.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    uranium: {
         id: "uranium",
         name: "Uranium",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Uranium",
@@ -167,9 +154,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/uranium.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    water: {
         id: "water",
         name: "Water",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Water",
@@ -179,9 +165,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/water.png",
         isFluid: true,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    wood: {
         id: "wood",
         name: "Wood",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Wood",
@@ -191,9 +176,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/wood.png",
         isFluid: false,
         isRawInput: true,
-        extractorType: null,
     },
-    {
+    "adaptive-control-unit": {
         id: "adaptive-control-unit",
         name: "Adaptive Control Unit",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Adaptive_Control_Unit",
@@ -203,9 +187,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/adaptive-control-unit.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "ai-limiter": {
         id: "ai-limiter",
         name: "AI Limiter",
         wikiUrl: "https://satisfactory.fandom.com//wiki/AI_Limiter",
@@ -215,9 +198,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/ai-limiter.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "alclad-aluminum-sheet": {
         id: "alclad-aluminum-sheet",
         name: "Alclad Aluminum Sheet",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Alclad_Aluminum_Sheet",
@@ -227,9 +209,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/alclad-aluminum-sheet.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "alien-protein": {
         id: "alien-protein",
         name: "Alien Protein",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Alien_Protein",
@@ -239,9 +220,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/alien-protein.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "alumina-solution": {
         id: "alumina-solution",
         name: "Alumina Solution",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Alumina_Solution",
@@ -251,9 +231,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/alumina-solution.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "aluminum-casing": {
         id: "aluminum-casing",
         name: "Aluminum Casing",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Casing",
@@ -263,9 +242,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/aluminum-casing.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "aluminum-ingot": {
         id: "aluminum-ingot",
         name: "Aluminum Ingot",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Ingot",
@@ -275,9 +253,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/aluminum-ingot.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "aluminum-scrap": {
         id: "aluminum-scrap",
         name: "Aluminum Scrap",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Aluminum_Scrap",
@@ -287,9 +264,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/aluminum-scrap.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "assembly-director-system": {
         id: "assembly-director-system",
         name: "Assembly Director System",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Assembly_Director_System",
@@ -299,9 +275,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/assembly-director-system.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "automated-wiring": {
         id: "automated-wiring",
         name: "Automated Wiring",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Automated_Wiring",
@@ -311,9 +286,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/automated-wiring.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    battery: {
         id: "battery",
         name: "Battery",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Battery",
@@ -323,9 +297,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/battery.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    beacon: {
         id: "beacon",
         name: "Beacon",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Beacon",
@@ -335,9 +308,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/beacon.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    biomass: {
         id: "biomass",
         name: "Biomass",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Biomass",
@@ -347,9 +319,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/biomass.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "black-powder": {
         id: "black-powder",
         name: "Black Powder",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Black_Powder",
@@ -359,9 +330,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/black-powder.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    cable: {
         id: "cable",
         name: "Cable",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Cable",
@@ -371,9 +341,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/cable.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "caterium-ingot": {
         id: "caterium-ingot",
         name: "Caterium Ingot",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Caterium_Ingot",
@@ -383,9 +352,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/caterium-ingot.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "circuit-board": {
         id: "circuit-board",
         name: "Circuit Board",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Circuit_Board",
@@ -395,9 +363,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/circuit-board.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "compacted-coal": {
         id: "compacted-coal",
         name: "Compacted Coal",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Compacted_Coal",
@@ -407,9 +374,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/compacted-coal.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    computer: {
         id: "computer",
         name: "Computer",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Computer",
@@ -419,9 +385,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/computer.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    concrete: {
         id: "concrete",
         name: "Concrete",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Concrete",
@@ -431,9 +396,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/concrete.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "cooling-system": {
         id: "cooling-system",
         name: "Cooling System",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Cooling_System",
@@ -443,9 +407,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/cooling-system.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "copper-ingot": {
         id: "copper-ingot",
         name: "Copper Ingot",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Copper_Ingot",
@@ -455,9 +418,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/copper-ingot.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "copper-powder": {
         id: "copper-powder",
         name: "Copper Powder",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Copper_Powder",
@@ -467,9 +429,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/copper-powder.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "copper-sheet": {
         id: "copper-sheet",
         name: "Copper Sheet",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Copper_Sheet",
@@ -479,9 +440,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/copper-sheet.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "crystal-oscillator": {
         id: "crystal-oscillator",
         name: "Crystal Oscillator",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Crystal_Oscillator",
@@ -491,9 +451,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/crystal-oscillator.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "electromagnetic-control-rod": {
         id: "electromagnetic-control-rod",
         name: "Electromagnetic Control Rod",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Electromagnetic_Control_Rod",
@@ -503,9 +462,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/electromagnetic-control-rod.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "empty-canister": {
         id: "empty-canister",
         name: "Empty Canister",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Empty_Canister",
@@ -515,9 +473,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/empty-canister.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "empty-fluid-tank": {
         id: "empty-fluid-tank",
         name: "Empty Fluid Tank",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Empty_Fluid_Tank",
@@ -527,9 +484,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/empty-fluid-tank.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "encased-industrial-beam": {
         id: "encased-industrial-beam",
         name: "Encased Industrial Beam",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Encased_Industrial_Beam",
@@ -539,9 +495,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/encased-industrial-beam.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "encased-plutonium-cell": {
         id: "encased-plutonium-cell",
         name: "Encased Plutonium Cell",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Encased_Plutonium_Cell",
@@ -551,9 +506,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/encased-plutonium-cell.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "encased-uranium-cell": {
         id: "encased-uranium-cell",
         name: "Encased Uranium Cell",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Encased_Uranium_Cell",
@@ -563,9 +517,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/encased-uranium-cell.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    fabric: {
         id: "fabric",
         name: "Fabric",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Fabric",
@@ -575,9 +528,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/fabric.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    fuel: {
         id: "fuel",
         name: "Fuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Fuel",
@@ -587,9 +539,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/fuel.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "fused-modular-frame": {
         id: "fused-modular-frame",
         name: "Fused Modular Frame",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Fused_Modular_Frame",
@@ -599,9 +550,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/fused-modular-frame.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "heat-sink": {
         id: "heat-sink",
         name: "Heat Sink",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Heat_Sink",
@@ -611,9 +561,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/heat-sink.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "heavy-modular-frame": {
         id: "heavy-modular-frame",
         name: "Heavy Modular Frame",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Heavy_Modular_Frame",
@@ -623,9 +572,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/heavy-modular-frame.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "heavy-oil-residue": {
         id: "heavy-oil-residue",
         name: "Heavy Oil Residue",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Heavy_Oil_Residue",
@@ -635,9 +583,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/heavy-oil-residue.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "high-speed-connector": {
         id: "high-speed-connector",
         name: "High-Speed Connector",
         wikiUrl: "https://satisfactory.fandom.com//wiki/High-Speed_Connector",
@@ -647,9 +594,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/high-speed-connector.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "iron-ingot": {
         id: "iron-ingot",
         name: "Iron Ingot",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Iron_Ingot",
@@ -659,9 +605,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/iron-ingot.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "iron-plate": {
         id: "iron-plate",
         name: "Iron Plate",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Iron_Plate",
@@ -671,9 +616,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/iron-plate.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "iron-rod": {
         id: "iron-rod",
         name: "Iron Rod",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Iron_Rod",
@@ -683,9 +627,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/iron-rod.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "liquid-biofuel": {
         id: "liquid-biofuel",
         name: "Liquid Biofuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Liquid_Biofuel",
@@ -695,9 +638,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/liquid-biofuel.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "modular-engine": {
         id: "modular-engine",
         name: "Modular Engine",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Modular_Engine",
@@ -707,9 +649,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/modular-engine.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "modular-frame": {
         id: "modular-frame",
         name: "Modular Frame",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Modular_Frame",
@@ -719,9 +660,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/modular-frame.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    motor: {
         id: "motor",
         name: "Motor",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Motor",
@@ -731,9 +671,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/motor.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "nitric-acid": {
         id: "nitric-acid",
         name: "Nitric Acid",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Nitric_Acid",
@@ -743,9 +682,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/nitric-acid.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "non-fissile-uranium": {
         id: "non-fissile-uranium",
         name: "Non-fissile Uranium",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Non-fissile_Uranium",
@@ -755,9 +693,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/non-fissile-uranium.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "nuclear-pasta": {
         id: "nuclear-pasta",
         name: "Nuclear Pasta",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Nuclear_Pasta",
@@ -767,9 +704,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/nuclear-pasta.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-alumina-solution": {
         id: "packaged-alumina-solution",
         name: "Packaged Alumina Solution",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Alumina_Solution",
@@ -779,9 +715,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-alumina-solution.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-fuel": {
         id: "packaged-fuel",
         name: "Packaged Fuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Fuel",
@@ -791,9 +726,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-fuel.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-heavy-oil-residue": {
         id: "packaged-heavy-oil-residue",
         name: "Packaged Heavy Oil Residue",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Heavy_Oil_Residue",
@@ -803,9 +737,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-heavy-oil-residue.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-liquid-biofuel": {
         id: "packaged-liquid-biofuel",
         name: "Packaged Liquid Biofuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Liquid_Biofuel",
@@ -815,9 +748,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-liquid-biofuel.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-nitric-acid": {
         id: "packaged-nitric-acid",
         name: "Packaged Nitric Acid",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Nitric_Acid",
@@ -827,9 +759,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-nitric-acid.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-nitrogen-gas": {
         id: "packaged-nitrogen-gas",
         name: "Packaged Nitrogen Gas",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Nitrogen_Gas",
@@ -839,9 +770,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-nitrogen-gas.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-oil": {
         id: "packaged-oil",
         name: "Packaged Oil",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Oil",
@@ -851,9 +781,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-oil.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-sulfuric-acid": {
         id: "packaged-sulfuric-acid",
         name: "Packaged Sulfuric Acid",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Sulfuric_Acid",
@@ -863,9 +792,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-sulfuric-acid.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-turbofuel": {
         id: "packaged-turbofuel",
         name: "Packaged Turbofuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Turbofuel",
@@ -875,9 +803,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-turbofuel.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "packaged-water": {
         id: "packaged-water",
         name: "Packaged Water",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Packaged_Water",
@@ -887,9 +814,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/packaged-water.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "petroleum-coke": {
         id: "petroleum-coke",
         name: "Petroleum Coke",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Petroleum_Coke",
@@ -899,9 +825,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/petroleum-coke.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    plastic: {
         id: "plastic",
         name: "Plastic",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Plastic",
@@ -911,9 +836,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/plastic.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "plutonium-fuel-rod": {
         id: "plutonium-fuel-rod",
         name: "Plutonium Fuel Rod",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Plutonium_Fuel_Rod",
@@ -923,9 +847,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/plutonium-fuel-rod.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "plutonium-pellet": {
         id: "plutonium-pellet",
         name: "Plutonium Pellet",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Plutonium_Pellet",
@@ -935,9 +858,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/plutonium-pellet.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "plutonium-waste": {
         id: "plutonium-waste",
         name: "Plutonium Waste",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Plutonium_Waste",
@@ -947,9 +869,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/plutonium-waste.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "polymer-resin": {
         id: "polymer-resin",
         name: "Polymer Resin",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Polymer_Resin",
@@ -959,9 +880,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/polymer-resin.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "pressure-conversion-cube": {
         id: "pressure-conversion-cube",
         name: "Pressure Conversion Cube",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Pressure_Conversion_Cube",
@@ -971,9 +891,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/pressure-conversion-cube.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "quartz-crystal": {
         id: "quartz-crystal",
         name: "Quartz Crystal",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Quartz_Crystal",
@@ -983,9 +902,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/quartz-crystal.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    quickwire: {
         id: "quickwire",
         name: "Quickwire",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Quickwire",
@@ -995,9 +913,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/quickwire.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "radio-control-unit": {
         id: "radio-control-unit",
         name: "Radio Control Unit",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Radio_Control_Unit",
@@ -1007,9 +924,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/radio-control-unit.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "reinforced-iron-plate": {
         id: "reinforced-iron-plate",
         name: "Reinforced Iron Plate",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Reinforced_Iron_Plate",
@@ -1019,9 +935,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/reinforced-iron-plate.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    rotor: {
         id: "rotor",
         name: "Rotor",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Rotor",
@@ -1031,9 +946,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/rotor.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    rubber: {
         id: "rubber",
         name: "Rubber",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Rubber",
@@ -1043,9 +957,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/rubber.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    screw: {
         id: "screw",
         name: "Screw",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Screw",
@@ -1055,9 +968,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/screw.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    silica: {
         id: "silica",
         name: "Silica",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Silica",
@@ -1067,9 +979,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/silica.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "smart-plating": {
         id: "smart-plating",
         name: "Smart Plating",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Smart_Plating",
@@ -1079,9 +990,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/smart-plating.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "solid-biofuel": {
         id: "solid-biofuel",
         name: "Solid Biofuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Solid_Biofuel",
@@ -1091,9 +1001,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/solid-biofuel.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    stator: {
         id: "stator",
         name: "Stator",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Stator",
@@ -1103,9 +1012,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/stator.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "steel-beam": {
         id: "steel-beam",
         name: "Steel Beam",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Steel_Beam",
@@ -1115,9 +1023,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/steel-beam.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "steel-ingot": {
         id: "steel-ingot",
         name: "Steel Ingot",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Steel_Ingot",
@@ -1127,9 +1034,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/steel-ingot.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "steel-pipe": {
         id: "steel-pipe",
         name: "Steel Pipe",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Steel_Pipe",
@@ -1139,9 +1045,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/steel-pipe.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "sulfuric-acid": {
         id: "sulfuric-acid",
         name: "Sulfuric Acid",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Sulfuric_Acid",
@@ -1151,9 +1056,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/sulfuric-acid.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    supercomputer: {
         id: "supercomputer",
         name: "Supercomputer",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Supercomputer",
@@ -1163,9 +1067,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/supercomputer.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "turbo-motor": {
         id: "turbo-motor",
         name: "Turbo Motor",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Turbo_Motor",
@@ -1175,9 +1078,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/turbo-motor.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    turbofuel: {
         id: "turbofuel",
         name: "Turbofuel",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Turbofuel",
@@ -1187,9 +1089,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/turbofuel.png",
         isFluid: true,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "uranium-fuel-rod": {
         id: "uranium-fuel-rod",
         name: "Uranium Fuel Rod",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Uranium_Fuel_Rod",
@@ -1199,9 +1100,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/uranium-fuel-rod.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "uranium-waste": {
         id: "uranium-waste",
         name: "Uranium Waste",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Uranium_Waste",
@@ -1211,9 +1111,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/uranium-waste.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    "versatile-framework": {
         id: "versatile-framework",
         name: "Versatile Framework",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Versatile_Framework",
@@ -1223,9 +1122,8 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/versatile-framework.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-    {
+    wire: {
         id: "wire",
         name: "Wire",
         wikiUrl: "https://satisfactory.fandom.com//wiki/Wire",
@@ -1235,6 +1133,5 @@ export const ITEMS: readonly Item[] = [
         imgUrl: "assets/images/wire.png",
         isFluid: false,
         isRawInput: false,
-        extractorType: null,
     },
-];
+};
