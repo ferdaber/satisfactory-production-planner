@@ -26,9 +26,10 @@ export function ProductionNode(props: NodeProps<ProductionNodeData>) {
         <div className="relative">
             {data.kind === "building" && (
                 <div
-                    className={`text-white text-center min-w-full max-w-[${
-                        ProductionNode.DIAMETER * 2
-                    }px] absolute bottom-full left-1/2 -translate-y-1 -translate-x-1/2 text-xs`}
+                    css={{
+                        maxWidth: ProductionNode.DIAMETER * 2,
+                    }}
+                    className={`text-white text-center min-w-full absolute bottom-full left-1/2 -translate-y-1 -translate-x-1/2 text-xs`}
                 >
                     <div className="text-[10px]/[1.2]">
                         <a
@@ -46,8 +47,12 @@ export function ProductionNode(props: NodeProps<ProductionNodeData>) {
                 </div>
             )}
             <div
+                css={{
+                    height: ProductionNode.DIAMETER,
+                    width: ProductionNode.DIAMETER,
+                }}
                 className={cx(
-                    `rounded-full overflow-hidden h-[${ProductionNode.DIAMETER}px] w-[${ProductionNode.DIAMETER}px] bg-stone-700 p-1 border-2 border-opacity-75`,
+                    `rounded-full overflow-hidden bg-stone-700 p-1 border-2 border-opacity-75`,
                     data.kind === "building"
                         ? "border-white"
                         : data.ioKind === "input"
@@ -76,9 +81,10 @@ export function ProductionNode(props: NodeProps<ProductionNodeData>) {
                 />
             </div>
             <div
-                className={`text-white text-center min-w-full max-w-[${
-                    ProductionNode.DIAMETER * 2
-                }px] absolute top-full left-1/2 translate-y-1 -translate-x-1/2 text-xs`}
+                css={{
+                    maxWidth: ProductionNode.DIAMETER * 2,
+                }}
+                className={`text-white text-center min-w-full absolute top-full left-1/2 translate-y-1 -translate-x-1/2 text-xs`}
             >
                 <div className="whitespace-nowrap">
                     {data.amount.denominator === 1 ? (
