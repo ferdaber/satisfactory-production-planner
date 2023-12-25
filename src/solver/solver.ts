@@ -1,42 +1,10 @@
-import { getItemById, getRecipesByOutputId } from "./data/db";
-import { FractionLike, Fraction, createFraction } from "./math/fractions";
-import { Matrix } from "./math/matrix";
-import { rref } from "./math/row-reduce";
-import { Item } from "./types/item";
-import { Recipe, RecipeInput, RecipeOutput } from "./types/recipe";
-
-export interface LinkedRecipeCalcData {
-    matrixColumnIdx: number;
-    solution: Fraction;
-}
-
-export interface LinkedRecipeIOFeedLink {
-    recipe: LinkedRecipe;
-    oppositeFeed: LinkedRecipeIOFeed;
-}
-
-export interface LinkedRecipeIOFeed {
-    calcData: LinkedRecipeCalcData;
-    link: LinkedRecipeIOFeedLink | null;
-    isRecycle?: boolean;
-}
-
-export interface LinkedRecipeIO<T extends RecipeInput | RecipeOutput = RecipeInput | RecipeOutput> {
-    dbData: T;
-    // this represents a specific input or output feed into this recipe
-    // for BOTH outputs and inputs it can be multiple feeds (splitter) for a single item
-    // an output can have multiple feeds if the same recipe is re-used for multiple destinations
-    // an input can have multiple feeds if an output is reused as a recycle feed (think water production from alumina)
-    // a feed can be connected to another recipe, or it can be unlinked (in the case of leaf or root nodes)
-    feeds: LinkedRecipeIOFeed[];
-}
-
-export interface LinkedRecipe {
-    dbData: Recipe;
-    buildingCalcData: LinkedRecipeCalcData;
-    inputs: { [itemId: string]: LinkedRecipeIO };
-    outputs: { [itemId: string]: LinkedRecipeIO };
-}
+import { getItemById, getRecipesByOutputId } from "../data/db";
+import Fraction, { FractionLike } from "../math/fraction";
+import { Matrix } from "../math/matrix";
+import { rref } from "../math/row-reduce";
+import { Item } from "../types/item";
+import { Recipe } from "../types/recipe";
+import { LinkedRecipe, LinkedRecipeIOFeed } from "./types";
 
 function buildRow<T extends FractionLike>(rowLength: number, rowValues: Record<number, T>): T[] {
     const row: FractionLike[] = Array(rowLength).fill(0);
@@ -127,7 +95,7 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                 dbData: recipe,
                 buildingCalcData: {
                     matrixColumnIdx: colIdx++,
-                    solution: createFraction(-1),
+                    solution: new Fraction(-1),
                 },
                 outputs: {},
                 inputs: {},
@@ -158,7 +126,7 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     const feed: LinkedRecipeIOFeed = {
                         calcData: {
                             matrixColumnIdx: colIdx++,
-                            solution: createFraction(-1),
+                            solution: new Fraction(-1),
                         },
                         link: null,
                     };
@@ -182,7 +150,7 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                 const feed: LinkedRecipeIOFeed = {
                     calcData: {
                         matrixColumnIdx: colIdx++,
-                        solution: createFraction(-1),
+                        solution: new Fraction(-1),
                     },
                     link: null,
                 };
@@ -244,7 +212,7 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                 ...Object.fromEntries(
                     firstInput.feeds.map((feed) => [
                         feed.calcData.matrixColumnIdx,
-                        createFraction(firstInput.dbData.throughput).inverse(),
+                        new Fraction(firstInput.dbData.throughput).inverse(),
                     ]),
                 ),
             }),
@@ -261,13 +229,13 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     ...Object.fromEntries(
                         input.feeds.map((feed) => [
                             feed.calcData.matrixColumnIdx,
-                            createFraction(input.dbData.throughput).inverse().multiply(-1),
+                            new Fraction(input.dbData.throughput).inverse().negate(),
                         ]),
                     ),
                     ...Object.fromEntries(
                         firstOutput.feeds.map((feed) => [
                             feed.calcData.matrixColumnIdx,
-                            createFraction(firstOutput.dbData.throughput).inverse(),
+                            new Fraction(firstOutput.dbData.throughput).inverse(),
                         ]),
                     ),
                 }),
@@ -279,39 +247,18 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
                     ...Object.fromEntries(
                         firstInput.feeds.map((feed) => [
                             feed.calcData.matrixColumnIdx,
-                            createFraction(firstInput.dbData.throughput).inverse().multiply(-1),
+                            new Fraction(firstInput.dbData.throughput).inverse().negate(),
                         ]),
                     ),
                     ...Object.fromEntries(
                         output.feeds.map((feed) => [
                             feed.calcData.matrixColumnIdx,
-                            createFraction(output.dbData.throughput).inverse(),
+                            new Fraction(output.dbData.throughput).inverse(),
                         ]),
                     ),
                 }),
             );
         }
-
-        // any input and output that is linked will have an equality relation
-        // const addEqualityRelation = (key: "inputs" | "outputs") => {
-        //     for (const link of linkedRecipe[key]) {
-        //         if (link.linkedRecipe && !seenLinks.has(link)) {
-        //             const otherLink = link.linkedRecipe[key === "inputs" ? "outputs" : "inputs"].find(
-        //                 (otherLink) => otherLink.linkedRecipe === linkedRecipe,
-        //             )!;
-        //             matrix.push(
-        //                 buildRow(numColumns, {
-        //                     [link.matrixCoefficientColumnIdx]: 1,
-        //                     [otherLink.matrixCoefficientColumnIdx]: -1,
-        //                 }),
-        //             );
-        //             seenLinks.add(link);
-        //             seenLinks.add(otherLink);
-        //         }
-        //     }
-        // };
-        // addEqualityRelation("inputs");
-        // addEqualityRelation("outputs");
     }
     // the last one is the invariant
     const invariantColumnIdx = desiredItemRecipe.outputs[outputItemId].feeds[0].calcData.matrixColumnIdx;
@@ -337,40 +284,4 @@ export function solveProduction(outputItemId: string, throughput: number, debug 
     }
 
     return linkedRecipes;
-}
-
-function printIo(io: LinkedRecipeIO, type: "input" | "output") {
-    const dirStr = type === "input" ? "from" : "to";
-    if (io.feeds.length === 1) {
-        let str = `  - ${getItemById(io.dbData.itemId).name} (${io.feeds[0].calcData.solution} units/min)`;
-        if (io.feeds[0].link) {
-            str += ` ${dirStr} recipe "${io.feeds[0].link.recipe.dbData.name}"`;
-        }
-        return str;
-    } else {
-        return [
-            `  - ${getItemById(io.dbData.itemId).name} (split)`,
-            ...io.feeds.map((feed) => {
-                let str = `    - ${feed.calcData.solution} units/min`;
-                if (feed.link) {
-                    str += ` ${dirStr} recipe "${feed.link.recipe.dbData.name}"`;
-                }
-                return str;
-            }),
-        ].join("\n");
-    }
-}
-
-export function printSolvedProduction(linkedRecipes: readonly LinkedRecipe[]) {
-    return linkedRecipes
-        .map((recipe) => {
-            const inputs = Object.values(recipe.inputs)
-                .map((io) => printIo(io, "input"))
-                .join("\n");
-            const outputs = Object.values(recipe.outputs)
-                .map((io) => printIo(io, "output"))
-                .join("\n");
-            return `Recipe "${recipe.dbData.name}" (${recipe.dbData.buildingId} x${recipe.buildingCalcData.solution}):\nInputs:\n${inputs}\nOutputs:\n${outputs}`;
-        })
-        .join("\n\n");
 }

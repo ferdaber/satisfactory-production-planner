@@ -1,7 +1,7 @@
 import { BaseEdge, EdgeLabelRenderer, EdgeProps, getStraightPath } from "reactflow";
 import { ProductionNode } from "./production-node";
 import { Item } from "../types/item";
-import { Fraction } from "../math/fractions";
+import { Fraction } from "../math/fraction";
 
 export interface ProductionEdgeData {
     item: Item;

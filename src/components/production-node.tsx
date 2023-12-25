@@ -3,8 +3,8 @@ import { Handle, Position, NodeProps } from "reactflow";
 import { Building } from "../types/building";
 import { Item } from "../types/item";
 import { cx } from "../cx";
-import { Fraction } from "../math/fractions";
 import { Recipe } from "../types/recipe";
+import Fraction from "../math/fraction";
 
 export type ProductionNodeData =
     | {

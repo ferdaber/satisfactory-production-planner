@@ -28,7 +28,7 @@ export function Sidebar(props: Props) {
 
     return (
         <aside className="min-w-[320px] bg-stone-800 p-3 flex flex-col">
-            <h2 className="text-center text-2xl my-4">Production Planner</h2>
+            <h2 className="text-center text-2xl my-4">Production Solver</h2>
             <input
                 ref={searchRef}
                 className="bg-stone-100 text-stone-950 placeholder-stone-500 text-sm py-1 px-2 rounded-sm self-stretch"

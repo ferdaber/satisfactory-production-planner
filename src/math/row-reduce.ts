@@ -1,9 +1,9 @@
 import { Matrix, printMatrix, validateMatrix } from "./matrix";
-import { FractionLike, Fraction, createFraction } from "./fractions";
+import { FractionLike, Fraction } from "./fraction";
 
 export function rref(numMatrix: Readonly<Matrix<FractionLike>>, debug = false): Matrix<Fraction> {
     validateMatrix(numMatrix);
-    const matrix = numMatrix.map((row) => row.map((col) => createFraction(col)));
+    const matrix = numMatrix.map((row) => row.map((col) => new Fraction(col)));
     if (debug) {
         console.log(`Starting matrix`);
         console.log(printMatrix(matrix));
@@ -11,9 +11,9 @@ export function rref(numMatrix: Readonly<Matrix<FractionLike>>, debug = false): 
     let rowIdx = 0,
         colIdx = 0;
     while (rowIdx < matrix.length && colIdx < matrix[0].length) {
-        if (matrix[rowIdx][colIdx].approxEquals(0)) {
+        if (matrix[rowIdx][colIdx].equals(0)) {
             // find a cell that is non-zero below the test cell
-            const nextNonZeroRowIdx = matrix.findIndex((row, idx) => idx > rowIdx && !row[colIdx].approxEquals(0));
+            const nextNonZeroRowIdx = matrix.findIndex((row, idx) => idx > rowIdx && !row[colIdx].equals(0));
             if (nextNonZeroRowIdx === -1) {
                 // all rows are zero, so we can consider it to be the pivot, continue to the right
                 colIdx += 1;
@@ -26,8 +26,8 @@ export function rref(numMatrix: Readonly<Matrix<FractionLike>>, debug = false): 
                 }
             }
         } else {
-            if (!matrix[rowIdx][colIdx].approxEquals(1)) {
-                const inverse = matrix[rowIdx][colIdx].copy().inverse();
+            if (!matrix[rowIdx][colIdx].equals(1)) {
+                const inverse = matrix[rowIdx][colIdx].clone().inverse();
                 matrix[rowIdx] = matrix[rowIdx].map((col) => col.multiply(inverse));
                 if (debug) {
                     console.log(`Reducing row to 1`);
@@ -36,13 +36,13 @@ export function rref(numMatrix: Readonly<Matrix<FractionLike>>, debug = false): 
             }
 
             for (let thisRowIdx = 0; thisRowIdx < matrix.length; thisRowIdx++) {
-                if (thisRowIdx === rowIdx || matrix[thisRowIdx][colIdx].approxEquals(0)) {
+                if (thisRowIdx === rowIdx || matrix[thisRowIdx][colIdx].equals(0)) {
                     continue;
                 } else {
                     // a - b*(a/b) = 0
-                    const inverseScalar = matrix[thisRowIdx][colIdx].copy().divide(matrix[rowIdx][colIdx]);
+                    const inverseScalar = matrix[thisRowIdx][colIdx].clone().divide(matrix[rowIdx][colIdx]);
                     matrix[thisRowIdx] = matrix[thisRowIdx].map((col, thisColIdx) =>
-                        col.subtract(matrix[rowIdx][thisColIdx].copy().multiply(inverseScalar)),
+                        col.subtract(matrix[rowIdx][thisColIdx].clone().multiply(inverseScalar)),
                     );
                     if (debug) {
                         console.log(`Subtracting pivot row into another row`);

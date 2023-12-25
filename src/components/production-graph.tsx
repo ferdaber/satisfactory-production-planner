@@ -2,7 +2,7 @@ import Dagre from "@dagrejs/dagre";
 import { forceSimulation, forceCollide, forceLink, SimulationLinkDatum } from "d3-force";
 import { useEffect, useState } from "react";
 import { Item } from "../types/item";
-import { solveProduction } from "../solver";
+import { solveProduction } from "../solver/solver";
 import { getBuildingById, getItemById } from "../data/db";
 import ReactFlow, { Edge, MarkerType, Node, ReactFlowInstance, applyNodeChanges } from "reactflow";
 import { ProductionNode, ProductionNodeData } from "./production-node";
